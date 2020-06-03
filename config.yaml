@@ -32,7 +32,7 @@ logDir: '/path/to/output/logs/'
 tempDir: '/path/to/temp/space/'
 
 #### Cluster parameters ####
-clusterMode: 'qsub -V -j y -o ${PWD}' 
+clusterMode: 'qsub -V -j y -o /path/to/output/logs/' 
 latency: 600
 maxNumJobs: 40
 maxThreads:
