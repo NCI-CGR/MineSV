@@ -1,5 +1,14 @@
 # MoCCA-SV: Modular Calling, Comparison, and Annotation of Structural Variants
 
+## Quick Start
+
+1.  Install via `git clone https://github.com/NCI-CGR/MoCCA-SV.git`
+2.  Copy `config.yaml` to your project directory and edit as needed
+3.  Create a sample file in the format specified for your analysis mode (see section __Sample file formats__ for details)
+4.  Run the pipeline:
+  - For CGR production runs, copy `run_pipeline.sh` to your project directory and edit as needed, then run via `./run_pipeline.sh`
+  - For runs outside of the CGR environment, you may use `run_pipeline.sh` after editing it to load the required dependencies in your environment, or you can load dependencies manually (see section __Dependencies__) and then run the script `SV_wrapper.sh` as appropriate for your environment (e.g. on an HPC using the SGE job scheduler, run `qsub -q <queue> /path/to/SV_wrapper.sh /full/path/config.yaml`)
+
 ## Overview
 
 ### I.  Description
@@ -13,6 +22,7 @@ To run MoCCA-SV, you will need:
 - snakemake
 - perl v5.18+
 - singularity v2+
+- git
 
 ### III.  Analysis modes
 
@@ -57,11 +67,14 @@ To add a caller, three new elements are required: a snakefile to run the calling
 
 ### II.  Sample file formats
 
+- All sample files, unless otherwise noted, are:
+  - single-space delimited
+  - headerless
+  - filenames only, no path (path is specified in `config.yaml` as `inDir`; the pipeline is currently set up such that all bams are assumed to be in the same directory)
+
 - Sample files for __callOnly__ or __callAndAnnotate__ run modes:
   - Tumor/normal mode:
-    - Three space-delimited, headerless columns: sample name, tumor bam, normal bam
-    - File names only - not path (the path is specified in config.yaml as "inDir")
-      - The pipeline is currently set up such that all bams are assumed to be in the same directory
+    - Three columns: sample name, tumor bam, normal bam
     - Example:
 
     ```
@@ -72,8 +85,7 @@ To add a caller, three new elements are required: a snakefile to run the calling
     ```
 
   - De novo mode:
-    - Four space-delimited, headerless columns: family ID, parent1 bam, parent2 bam, child bam
-    - File names only
+    - Four columns: family ID, parent1 bam, parent2 bam, child bam
     - Example:
 
     ```
@@ -84,8 +96,7 @@ To add a caller, three new elements are required: a snakefile to run the calling
 
   - Tumor only mode:
   - Germline mode:
-    - Two space-delimited, headerless columns: subject ID, bam
-    - File name only (no path)
+    - Two columns: subject ID, bam
     - Example:
 
     ```
@@ -95,8 +106,7 @@ To add a caller, three new elements are required: a snakefile to run the calling
 
 - Sample files for __annotateOnly__ mode:
   - Note that this sample file is automatically generated if MoCCA-SV is used to call the data
-  - Space-delimited with header line
-  - Header: sample caller1 caller2 ...
+  - Include a header line: sample caller1 caller2 ... callerN
   - File names with full paths
   - Example:
 
@@ -177,9 +187,7 @@ __Cluster parameters__
 
 ### V.  To run
 
-- Copy config.yaml to your directory
-- Edit config.yaml and save
-- Run `SV_wrapper.sh /full/path/config.yaml` as appropriate for your environment (e.g. on an HPC using the SGE job scheduler, run `qsub -q <queue> SV_wrapper.sh /full/path/config.yaml`)
+- See __Quick Start__ section
     
 
 ### VI.  To monitor pipeline
@@ -193,7 +201,7 @@ __Cluster parameters__
   Command run: conf=/path/to/config.yaml snakemake -p -s /path/to/Snakefile_SV_scaffold --use-singularity --singularity-args "-B /path/to/input:/input,/ttemp/sv:/scratch,/path/to/refGenomes:/ref,/path/to/SV_out:/output,/path/to/pipeline:/exec" --rerun-incomplete --cluster "qsub -V -S /bin/sh -q queue.q -o /path/to/SV_out/logs -j y" --jobs 8 --latency-wait 300 &> /path/to/SV_out/logs/MoCCA-SV_201904041317.out
   ```
 
-  - Note that for troubleshooting, you can re-run the command printed in this log with additional snakemake command line options, like `-n` for a dry run or `--dag ... | dot -Tsvg > dag.svg` to visualize the directed acyclic graph.  See snakemake documentation for more details.
+  - Note that for troubleshooting, you can re-run the command printed in this log with additional snakemake command line options, like `-n` for a dry run or `--dag ... | dot -Tsvg > dag.svg` to visualize the directed acyclic graph.  See Snakemake documentation for more details.
 
 
 ### VI. Output
@@ -248,6 +256,10 @@ Headers from file `intrachromosomal_SVs_<sample>`:
 |Original_caller_output|all fields from the original caller's output, delimited by a double underscore "__"|
 
 *Think about differences for inter-chrom SVs, e.g. instead of all overlapping genes, just report those that the break ends reside in?  or all genes within x bp?*
+
+## VII.  Troubleshooting
+
+
 
 ## Developer's guide
 
