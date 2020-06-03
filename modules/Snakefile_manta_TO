@@ -33,7 +33,7 @@ rule manta_create_run_script:
         ref = ref,
         fai = ref + '.fai'
     output:
-        mantaTempDir + '{sample}/runWorkflow.py'
+        temp(mantaTempDir + '{sample}/runWorkflow.py')
     params:
         outParam = tempBindPath + 'manta_TO/{sample}',
         ref = refBindPath + refFile
@@ -50,19 +50,19 @@ rule manta_call:
     input:
         mantaTempDir + '{sample}/runWorkflow.py'
     output:
-        mantaTempDir + '{sample}/workspace/pyflow.data/logs/pyflow_log.txt',
-        mantaTempDir + '{sample}/results/variants/candidateSmallIndels.vcf.gz',
-        mantaTempDir + '{sample}/results/variants/candidateSmallIndels.vcf.gz.tbi',
-        mantaTempDir + '{sample}/results/variants/candidateSV.vcf.gz',
-        mantaTempDir + '{sample}/results/variants/candidateSV.vcf.gz.tbi',
-        mantaTempDir + '{sample}/results/variants/tumorSV.vcf.gz',
-        mantaTempDir + '{sample}/results/variants/tumorSV.vcf.gz.tbi',
-        mantaTempDir + '{sample}/results/variants/diploidSV.vcf.gz',
-        mantaTempDir + '{sample}/results/variants/diploidSV.vcf.gz.tbi',
-        mantaTempDir + '{sample}/results/stats/alignmentStatsSummary.txt',
-        mantaTempDir + '{sample}/results/stats/svCandidateGenerationStats.tsv',
-        mantaTempDir + '{sample}/results/stats/svCandidateGenerationStats.xml',
-        mantaTempDir + '{sample}/results/stats/svLocusGraphStats.tsv'
+        temp(mantaTempDir + '{sample}/workspace/pyflow.data/logs/pyflow_log.txt'),
+        temp(mantaTempDir + '{sample}/results/variants/candidateSmallIndels.vcf.gz'),
+        temp(mantaTempDir + '{sample}/results/variants/candidateSmallIndels.vcf.gz.tbi'),
+        temp(mantaTempDir + '{sample}/results/variants/candidateSV.vcf.gz'),
+        temp(mantaTempDir + '{sample}/results/variants/candidateSV.vcf.gz.tbi'),
+        temp(mantaTempDir + '{sample}/results/variants/tumorSV.vcf.gz'),
+        temp(mantaTempDir + '{sample}/results/variants/tumorSV.vcf.gz.tbi'),
+        temp(mantaTempDir + '{sample}/results/variants/diploidSV.vcf.gz'),
+        temp(mantaTempDir + '{sample}/results/variants/diploidSV.vcf.gz.tbi'),
+        temp(mantaTempDir + '{sample}/results/stats/alignmentStatsSummary.txt'),
+        temp(mantaTempDir + '{sample}/results/stats/svCandidateGenerationStats.tsv'),
+        temp(mantaTempDir + '{sample}/results/stats/svCandidateGenerationStats.xml'),
+        temp(mantaTempDir + '{sample}/results/stats/svLocusGraphStats.tsv')
     threads: mantaNt
     singularity: 'shub://bballew/NGS_singularity_recipes:manta_1-4-0'
     shell:
@@ -101,7 +101,7 @@ rule manta_move_call_files:
         oDir = mantaTempDir + '{sample}/',
         wDir = mantaWkngDir + '{sample}/'
     shell:
-        'mv {params.oDir} {params.wDir}'
+        'mv {params.oDir} {params.wDir}'  # need to update this
 
 rule manta_list_output_files:
     input:

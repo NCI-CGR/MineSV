@@ -56,8 +56,8 @@ rule manta_create_run_script:
         ref = ref,
         fai = ref + '.fai'
     output:
-        outFile = mantaTempDir + '{sample}/runWorkflow.py',
-        p = mantaTempDir + '{sample}/runWorkflow.py.config.pickle'
+        outFile = temp(mantaTempDir + '{sample}/runWorkflow.py'),
+        p = temp(mantaTempDir + '{sample}/runWorkflow.py.config.pickle')
     params:
         outParam = tempBindPath + 'manta_TN/{sample}',
         ref = refBindPath + refFile
@@ -82,22 +82,22 @@ rule manta_call:
         mantaTempDir + '{sample}/runWorkflow.py',
         mantaTempDir + '{sample}/runWorkflow.py.config.pickle'
     output:
-        mantaTempDir + '{sample}/workflow.error.log.txt',
-        mantaTempDir + '{sample}/workflow.exitcode.txt',
-        mantaTempDir + '{sample}/workflow.warning.log.txt',
-        mantaTempDir + '{sample}/workspace/pyflow.data/logs/pyflow_log.txt',
-        mantaTempDir + '{sample}/results/variants/candidateSmallIndels.vcf.gz',
-        mantaTempDir + '{sample}/results/variants/candidateSmallIndels.vcf.gz.tbi',
-        mantaTempDir + '{sample}/results/variants/candidateSV.vcf.gz',
-        mantaTempDir + '{sample}/results/variants/candidateSV.vcf.gz.tbi',
-        mantaTempDir + '{sample}/results/variants/diploidSV.vcf.gz',
-        mantaTempDir + '{sample}/results/variants/diploidSV.vcf.gz.tbi',
-        mantaTempDir + '{sample}/results/variants/somaticSV.vcf.gz',
-        mantaTempDir + '{sample}/results/variants/somaticSV.vcf.gz.tbi',
-        mantaTempDir + '{sample}/results/stats/alignmentStatsSummary.txt',
-        mantaTempDir + '{sample}/results/stats/svCandidateGenerationStats.tsv',
-        mantaTempDir + '{sample}/results/stats/svCandidateGenerationStats.xml',
-        mantaTempDir + '{sample}/results/stats/svLocusGraphStats.tsv'
+        temp(mantaTempDir + '{sample}/workflow.error.log.txt'),
+        temp(mantaTempDir + '{sample}/workflow.exitcode.txt'),
+        temp(mantaTempDir + '{sample}/workflow.warning.log.txt'),
+        temp(mantaTempDir + '{sample}/workspace/pyflow.data/logs/pyflow_log.txt'),
+        temp(mantaTempDir + '{sample}/results/variants/candidateSmallIndels.vcf.gz'),
+        temp(mantaTempDir + '{sample}/results/variants/candidateSmallIndels.vcf.gz.tbi'),
+        temp(mantaTempDir + '{sample}/results/variants/candidateSV.vcf.gz'),
+        temp(mantaTempDir + '{sample}/results/variants/candidateSV.vcf.gz.tbi'),
+        temp(mantaTempDir + '{sample}/results/variants/diploidSV.vcf.gz'),
+        temp(mantaTempDir + '{sample}/results/variants/diploidSV.vcf.gz.tbi'),
+        temp(mantaTempDir + '{sample}/results/variants/somaticSV.vcf.gz'),
+        temp(mantaTempDir + '{sample}/results/variants/somaticSV.vcf.gz.tbi'),
+        temp(mantaTempDir + '{sample}/results/stats/alignmentStatsSummary.txt'),
+        temp(mantaTempDir + '{sample}/results/stats/svCandidateGenerationStats.tsv'),
+        temp(mantaTempDir + '{sample}/results/stats/svCandidateGenerationStats.xml'),
+        temp(mantaTempDir + '{sample}/results/stats/svLocusGraphStats.tsv')
     threads: mantaNt
     params:
         tempBindPath + 'manta_TN/{sample}/runWorkflow.py'
@@ -145,14 +145,13 @@ rule manta_move_call_files:
         mantaWkngDir + '{sample}/results/variants/somaticSV.vcf.gz.tbi'
     params:
         wkngDir = mantaWkngDir + '{sample}/',
-        wkngDir1 = mantaWkngDir + '{sample}/results/stats/',
-        wkngDir2 = mantaWkngDir + '{sample}/results/variants/',
+        wkngDir1 = mantaWkngDir + '{sample}/results/',
         tempDir1 = mantaTempDir + '{sample}/results/stats/',
         tempDir2 = mantaTempDir + '{sample}/results/variants/'
     shell:
-        'mv -t {params.wkngDir} {input.i1} {input.i2} {input.i3} {input.i4} {input.i5};'
-        'mv -t {params.wkngDir1} {params.tempDir1}*;'
-        'mv -t {params.wkngDir2} {params.tempDir2}*'
+        'cp -r {params.tempDir1} {params.wkngDir1};'
+        'cp -r {params.tempDir2} {params.wkngDir1};'
+        'cp {input.i1} {input.i2} {input.i3} {input.i4} {input.i5} -t {params.wkngDir}'
 
 rule manta_list_output_files:
     input:
