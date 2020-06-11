@@ -259,7 +259,7 @@ Headers from file `intrachromosomal_SVs_<sample>`:
 
 ## VII.  Troubleshooting
 
-
+1.  A few files in this repo use git-lfs.  Generally, using git clone, without having git-lfs installed prior, should work.  However, this is problematic in some environments.  If you find that the files MoCCA-SV/annotation/genomic_context/*/RepeatMasker.bed contains a sha after pulling instead of genomic intervals, then installing git-lfs and running `git lfs install` may solve your problem.
 
 ## Developer's guide
 
