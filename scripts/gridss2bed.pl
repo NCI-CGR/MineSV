@@ -1,4 +1,4 @@
-#!/usr/bin/env perl
+#!/usr/bin/env perl -w
 
 
 @ARGV == 3 or die "$0 <INPUT VCF file> <Sample ID> <output Dir> \n";  
@@ -6,9 +6,12 @@
 my $input=shift;
 my $sample = shift;
 my $output_dir = shift;
+my $MIN_SV_LEN = 50;
 
 ##################################################
 # To convert GRIDSS V4.2 VCF file to bed format 
+# Wei Zhu
+# 2020-10-27 13:50:09
 ##################################################
 
 # Three files to be outputed here:
@@ -56,10 +59,15 @@ while(<FIN>){
     
     my %info_hash = map { /([^=]+)=?(\S*)/ } split m{;}, $info; 
 
-    my ($left, $orient, $chr2, $pos2,$right) = ($alt =~ /^(.*)([\[\]])(.+):(.+)\2(.*)$/);
+    
+    my ($svType, $svLen, $chr2, $pos2, $orient1) = &get_SVtype_and_SVlen($chr1, $pos1,  $ref, $alt);
+
+    next if $svType eq "INV" & $orient1 eq "-"; # keep one pair is sufficient
 
     if($chr1 eq $chr2){
         # intrachromosomal
+        next if $svLen < $MIN_SV_LEN; # ignore short SVs
+
         if($pos1 <= $pos2){
             print INTRA join("\t", $chr1, $pos1, $pos2, $NR)."\n";
         }else{
@@ -74,7 +82,7 @@ while(<FIN>){
     }
 
 
-    # print join("\t", $chr1, $pos1, $id, $ref, $alt, $info_hash{'EVENT'}, $NR, $left, $orient, $chr2, $pos2,$right, $filter)."\n";
+    # print join("\t", $svType, $chr1, $pos1, $id, $ref, $alt, $info_hash{'EVENT'}, $NR, $left, $orient, $chr2, $pos2,$right, $filter)."\n";
  
 }
 
@@ -85,7 +93,68 @@ close(INTER2);
 
 
 # identify the SV types
-# ref: https://raw.githubusercontent.com/stat-lab/EvalSVcallers/master/scripts/vcf_convert/convert_GRIDSS_vcf.pl
-sub get_SVtype_and_SVlen{
+# ref: https://raw.githubusercontent.com/stat-lab/EvalSVcallers/master/scripts/vcf_convert/convert_GRIDSS_vcf.pl (hard to follow)
+# https://github.com/PapenfussLab/gridss/blob/7b1fedfed32af9e03ed5c6863d368a821a4c699f/example/simple-event-annotation.R#L9
 
+# 1       25204182        25210853        UID_34  DUP     6671
+# 1       32176186        32193833        UID_45  INV     17647
+# 1       36419037        36421453        UID_53  DEL     2416
+# 1       37852934        37863685        UID_59  INV     10751
+# 1       40302119        40310285        UID_62  DEL     8166
+# 1       52748187        52752297        UID_73  DEL     4110
+sub get_SVtype_and_SVlen{
+    my ($chr1, $pos1, $ref, $alt)=@_;
+
+
+    # insertion:  1       66572   gridss0fb_85o   G       GTACTATATATTA[1:66573[  1121.28 PASS
+
+    my ($left, $bracket, $chr2, $pos2,$right) = ($alt =~ /^(.*)([\[\]])(.+):(.+)\2(.*)$/);
+
+    my $orient1="+";
+    my $insLen=0;
+    my $alt_clean=undef;
+    my $svLen= undef;
+    my $svType = "ITX";
+
+    if ($left ne ""){
+        $orient1="+";
+        $alt_clean=$left;
+    }else{
+        $orient1="-";
+        $alt_clean=$right
+    }
+    
+    if(length($alt_clean)> length($ref)){
+        $insLen = length($alt_clean)- length($ref);
+    }
+
+    my $orient2=($bracket eq '[')?"+":"-";
+
+
+
+    if($chr1 eq $chr2){
+        $svLen=abs($pos1-$pos2); # TODO, sv lenglth needs to be refined by SV types
+        
+        if($orient1 ne $orient2){
+            $svType="INV";
+        }else{
+            
+            if($insLen > $svLen*0.7){
+                $svType = "INS";
+                $svLen=$insLen; # use insertion size for the sv length
+            }else{
+                if( ($pos1 < $pos2) xor ($orient1 eq '-')){
+                    $svType="DEL";
+                }else{
+                    $svType="DUP";
+                }
+
+            }
+
+        }
+    }
+
+    # print "\n".join("\t", $svType, $alt, $left, $right, $orient1, $bracket, $orient2, $pos1, $pos2)."\n";
+
+    return($svType, $svLen, $chr2, $pos2, $orient1);
 }

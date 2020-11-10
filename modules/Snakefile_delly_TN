@@ -13,6 +13,8 @@ rule delly_call:
         ref = ref
     output:
         dellyWkngDir + 'calls/{sample}_{type}.bcf'
+    benchmark:
+        "benchmarks/delly_call/{sample}_{type}.tsv"
     params:
         tp = '{type}',
         r = refBindPath + refFile,
@@ -40,6 +42,8 @@ rule delly_create_tsv:
         path = execBindPath + 'scripts/',
         t = get_tumor_bam_container,
         n = get_normal_bam_container
+    benchmark:
+        "benchmarks/delly_create_tsv/{sample}.tsv"
     singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
     shell:
         '{params.path}create_tsv.sh {params.t} tumor {output};'
@@ -54,6 +58,8 @@ rule delly_pre_filter:
         dellyWkngDir + 'somatic/{sample}_{type}.bcf'
     params:
         tp = '{type}'
+    benchmark:
+        "benchmarks/delly_pre_filter/{sample}_{type}.tsv"
     singularity: 'shub://bballew/NGS_singularity_recipes:delly_0-8-1'
     shell:
         'delly filter \

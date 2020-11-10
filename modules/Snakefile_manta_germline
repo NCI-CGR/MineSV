@@ -13,6 +13,8 @@ rule manta_filter_bams:
     params:
         path = execBindPath + 'scripts/',
         bam = get_bam_container
+    benchmark:
+        "benchmarks/manta_filter_bams/{sample}.tsv"
     singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
     shell:
         '{params.path}filter_bams.sh {params.bam} {output}'
@@ -67,6 +69,8 @@ rule manta_call:
         mantaTempDir + '{sample}/results/stats/svCandidateGenerationStats.xml',
         mantaTempDir + '{sample}/results/stats/svLocusGraphStats.tsv'
     threads: mantaNt
+    benchmark:
+        "benchmarks/manta_call/{sample}.tsv"
     singularity: 'shub://bballew/NGS_singularity_recipes:manta_1-4-0'
     params:
         tempBindPath + 'manta_germline/{sample}/runWorkflow.py'

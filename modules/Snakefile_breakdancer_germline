@@ -17,6 +17,8 @@ rule breakdancer_config:
         breakdancerWkngDir + 'config/{sample}.config'
     params:
         get_bam_container
+    benchmark:
+        "benchmarks/breakdancer_config/{sample}.tsv"
     singularity:
         'shub://bballew/NGS_singularity_recipes:breakdancer_1-4-5'  # contains samtools and breakdancer
     shell:
@@ -33,6 +35,8 @@ rule breakdancer_bam_qc:
     params:
         path = execBindPath + 'scripts/',
         bam = get_bam_container
+    benchmark:
+        "benchmarks/breakdancer_bam_qc/{sample}.tsv"
     singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
     shell:
         '{params.path}breakdancer_cfg_qc.sh {input.cfg} {output.t1};'
@@ -48,6 +52,8 @@ rule breakdancer_run_per_chrom:
         chrom = chrPrefix + '{chr}'
     singularity:
         'shub://bballew/NGS_singularity_recipes:breakdancer_1-4-5'
+    benchmark:
+        "benchmarks/breakdancer_run_per_chrom/{chr}_{sample}.tsv"
     shell:
         'breakdancer-max {input} -o {params.chrom} > {output}'
 
@@ -58,6 +64,8 @@ rule breakdancer_run_translocations:
         breakdancerWkngDir + 'calls/transl.{sample}.out'
     singularity:
         'shub://bballew/NGS_singularity_recipes:breakdancer_1-4-5'
+    benchmark:
+        "benchmarks/breakdancer_run_translocation/{sample}.tsv"
     shell:
         'breakdancer-max {input} -t > {output}'
 
