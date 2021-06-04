@@ -34,6 +34,8 @@ rule svaba_call:
         svabaTempDir + 'calls/{sample}.svaba.unfiltered.somatic.indel.vcf',
         svabaTempDir + 'calls/{sample}.svaba.unfiltered.somatic.sv.vcf'
     threads: svabaNt
+    benchmark:
+        "benchmarks/svaba_call/{sample}.tsv"
     params:
         r = refBindPath + refFile,
         o = tempBindPath + svabaWkngDir + 'calls/',

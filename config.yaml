@@ -1,10 +1,12 @@
 #### Basic analysis parameters ####
-analysisMode: 'TN'  # TN, TO, germline, de_novo
+analysisMode: 'germline'  # TN, TO, germline, de_novo
 callers:            # available callers: svaba, breakdancer, delly, manta
 - svaba
 - breakdancer
 - delly
 - manta
+- gridss
+
 runMode:
   callAndAnnotate: yes
   callOnly: no
@@ -39,3 +41,5 @@ maxThreads:
 - 4
 - 1
 - 1
+- 4
+- 8 

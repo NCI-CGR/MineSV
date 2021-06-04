@@ -29,6 +29,8 @@ rule svaba_call:
         temp(svabaTempDir + 'calls/{sample}.svaba.unfiltered.indel.vcf'),
         temp(svabaTempDir + 'calls/{sample}.svaba.unfiltered.sv.vcf')
     threads: svabaNt
+    benchmark:
+        "benchmarks/svaba_call/{sample}.tsv"
     params:
         r = refBindPath + refFile,
         o = tempBindPath + svabaWkngDir + 'calls/',
