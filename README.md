@@ -1,20 +1,50 @@
-# MoCCA-SV: Modular Calling, Comparison, and Annotation of Structural Variants
+<!-- omit in TOC -->
+# MineSV: Modular IdeNtification and Ensemble calling of Structure Variants
+
+---
+- [Overview](#overview)
+  - [I.  Description](#i-description)
+  - [II. A little history about MineSV](#ii-a-little-history-about-minesv)
+  - [III.  Dependencies](#iii-dependencies)
+  - [IV.  Analysis modes](#iv-analysis-modes)
+  - [V.  Run modes](#v-run-modes)
+  - [VI.  Callers available](#vi-callers-available)
+- [User's guide](#users-guide)
+  - [I.  Input requirements](#i-input-requirements)
+    - [A.  Required for all run modes:](#a-required-for-all-run-modes)
+    - [B.  Required for __callOnly__ or __callAndAnnotate__ run modes:](#b-required-for-callonly-or-callandannotate-run-modes)
+    - [C.  Required for annotateOnly run mode:](#c-required-for-annotateonly-run-mode)
+  - [II.  Sample file formats](#ii-sample-file-formats)
+  - [III.  Comparison and annotation](#iii-comparison-and-annotation)
+    - [A. SV comparison methods](#a-sv-comparison-methods)
+    - [B. Annotation](#b-annotation)
+  - [IV.  Editing the config.yaml](#iv-editing-the-configyaml)
+  - [V.  To run](#v-to-run)
+  - [VI.  To monitor pipeline](#vi-to-monitor-pipeline)
+  - [VI. Output](#vi-output)
+- [Developer's guide](#developers-guide)
+  - [I.  Pipeline architecture](#i-pipeline-architecture)
+  - [II.  To add callers](#ii-to-add-callers)
+- [Citations](#citations)
 
 ## Overview
 
 ### I.  Description
 
-This pipeline coordinates and monitors the submission of a list of bams for structural variant discovery, and comparison/annotation of results.  You may opt to run calling alone, annotation alone, or both sequentially.  Multiple callers are included with MoCCA-SV, and additional callers may be added.  The pipeline may be run on an HPC or in a local environment.  Details are described in subsequent sections.
+This pipeline coordinates and monitors the submission of a list of bams for structural variant discovery, and comparison/annotation of results.  You may opt to run calling alone, annotation alone, or both sequentially.  Multiple callers are included with MineSV, and additional callers may be added.  The pipeline may be run on an HPC or in a local environment.  Details are described in subsequent sections.
 
-### II.  Dependencies
+### II. A little history about MineSV
+MineSV was started to be developed at the NCI-Cancer Genomics Research Laboratory (NCI-CGR) in 2018, with the original name ***MoCCA-SV*** (Modular Calling, Comparison, and Annotation of Structural Variants). It was renamed as ***MineSV*** in June 2021.
 
-To run MoCCA-SV, you will need:
+### III.  Dependencies
+
+To run MineSV, you will need:
 - python v3
 - snakemake
 - perl v5.18+
 - singularity v2+
 
-### III.  Analysis modes
+### IV.  Analysis modes
 
 One of the following analysis modes may be specified in the configuration file:
 1. Tumor/Normal: for matched tumor/normal pairs; set analysisMode to 'TN'
@@ -22,14 +52,14 @@ One of the following analysis modes may be specified in the configuration file:
 3. De novo: for trios to detect de novo SVs in the proband; set analysisMode to 'de_novo' 
 4. Germline: for germline samples; set analysisMode to 'germline' 
 
-### IV.  Run modes
+### V.  Run modes
 
 The pipeline has three run modes available; select one in the configuration file under "runMode":
 1. callOnly: perform SV calling on user-specified bams
 2. annotateOnly: annotate and compare user-specified SV caller outputs 
 3. callAndAnnotate: call SVs and annotate (user only has to specify the initial bam inputs for this mode; caller outputs are automatically detected)
 
-### V.  Callers available
+### VI.  Callers available
 
 Select from the following callers in the configuration file under "callers":
 - svaba
@@ -94,7 +124,7 @@ To add a caller, three new elements are required: a snakefile to run the calling
     ```
 
 - Sample files for __annotateOnly__ mode:
-  - Note that this sample file is automatically generated if MoCCA-SV is used to call the data
+  - Note that this sample file is automatically generated if MineSV is used to call the data
   - Space-delimited with header line
   - Header: sample caller1 caller2 ...
   - File names with full paths
@@ -142,7 +172,7 @@ __Basic analysis parameters__
 __Annotation parameters__
 
 - `annotateFile:` If using annotateOnly mode, provide the `/full/path/to/SV_files_for_annotation.txt`
-  - This is the file indicating which caller outputs to compare and annotate.  If MoCCA-SV was used to generate the caller outputs, the file will be created for you and named SV_files_for_annotation.txt; otherwise you can manually create and name your own file in this format.  
+  - This is the file indicating which caller outputs to compare and annotate.  If MineSV was used to generate the caller outputs, the file will be created for you and named SV_files_for_annotation.txt; otherwise you can manually create and name your own file in this format.  
 - `annotationParams:` This section allows you to customize the stringency with which various comparisons are made.  
   - `interchromPadding:` base pairs to add on either side of the breakend to be used to find overlap when comparing inter-chromosomal SVs
   - `insertionPadding:` base pairs to add on either side of an insertion to find overlap when comparing across callers and annotating
@@ -184,13 +214,13 @@ __Cluster parameters__
 
 ### VI.  To monitor pipeline
 
-- Look in log directory (specified in config file) for snakemake logged stdout `MoCCA-SV_DATETIME.out`
+- Look in log directory (specified in config file) for snakemake logged stdout `MineSV_DATETIME.out`
 - Look in same log directory as above for logs for each rule (e.g. `snakejob.delly_call.119.sh.o123456`; file names will vary depeneding on environment)
 - Look in log directory for SV_wrapper.log.DATETIME.  Example output:
 
   ```
   /path/to/config.yaml passes all checks.
-  Command run: conf=/path/to/config.yaml snakemake -p -s /path/to/Snakefile_SV_scaffold --use-singularity --singularity-args "-B /path/to/input:/input,/ttemp/sv:/scratch,/path/to/refGenomes:/ref,/path/to/SV_out:/output,/path/to/pipeline:/exec" --rerun-incomplete --cluster "qsub -V -S /bin/sh -q queue.q -o /path/to/SV_out/logs -j y" --jobs 8 --latency-wait 300 &> /path/to/SV_out/logs/MoCCA-SV_201904041317.out
+  Command run: conf=/path/to/config.yaml snakemake -p -s /path/to/Snakefile_SV_scaffold --use-singularity --singularity-args "-B /path/to/input:/input,/ttemp/sv:/scratch,/path/to/refGenomes:/ref,/path/to/SV_out:/output,/path/to/pipeline:/exec" --rerun-incomplete --cluster "qsub -V -S /bin/sh -q queue.q -o /path/to/SV_out/logs -j y" --jobs 8 --latency-wait 300 &> /path/to/SV_out/logs/MineSV_201904041317.out
   ```
 
   - Note that for troubleshooting, you can re-run the command printed in this log with additional snakemake command line options, like `-n` for a dry run or `--dag ... | dot -Tsvg > dag.svg` to visualize the directed acyclic graph.  See snakemake documentation for more details.
@@ -198,7 +228,7 @@ __Cluster parameters__
 
 ### VI. Output
 
-MoCCA-SV has two main outputs: SV calls from each caller, and the union of all callers for each sample along with comparison and annotation information.
+MineSV has two main outputs: SV calls from each caller, and the union of all callers for each sample along with comparison and annotation information.
   1. Each caller run will write to its own directory (e.g. delly run in tumor/normal mode will create and write to a directory called `delly_TN`).  See the individual callers' documentation for descriptions of output.
   2. Running in callAndAnnotate or callOnly modes will create the directory `compare_and_annotate`.  This directory contains the files `intrachromosomal_SVs_<sample>`, which contain the superset of SVs from all callers.  *NOTE: this is under development, and inter-chromosomal SVs are being integrated currently.*
 
@@ -209,7 +239,7 @@ Example output directory structure is as follows.  Exact output will depend upon
    |--- delly_TN/
    |--- svaba_TN/
    |--- logs/
-   |  |--- MoCCA-SV_<datetime>.out
+   |  |--- MineSV_<datetime>.out
    |--- SV_files_for_annotation.txt
    |--- compare_and_annotate/
       |--- intrachromosomal_SVs_sampleA
@@ -253,7 +283,7 @@ Headers from file `intrachromosomal_SVs_<sample>`:
 
 ### I.  Pipeline architecture
 
-MoCCA-SV is a Snakemake pipeline controlled by a user-configurable YAML file.  The file Snakefile_SV_scaffold pulls in other sets of rules based on the chosen configuration options, and for either of the two calling run modes, runs a few rules that are required regardless of caller choice.  The scaffold dictates which sets of rules to include based on the analysis mode and the list of callers.  Snakefiles in the `modules/` directory contain the sets of rules that pertain to a given caller and analysis mode.  They are named accordingly, e.g. `modules/Snakefile_delly_TN` contains the rules to run delly on tumor/normal samples.  The scaffold matches the callers and analysis mode listed in the config to the modules/Snakefiles in order to include the applicable rules, but in such a way as to minimize code changes required to add new callers.  
+MineSV is a Snakemake pipeline controlled by a user-configurable YAML file.  The file Snakefile_SV_scaffold pulls in other sets of rules based on the chosen configuration options, and for either of the two calling run modes, runs a few rules that are required regardless of caller choice.  The scaffold dictates which sets of rules to include based on the analysis mode and the list of callers.  Snakefiles in the `modules/` directory contain the sets of rules that pertain to a given caller and analysis mode.  They are named accordingly, e.g. `modules/Snakefile_delly_TN` contains the rules to run delly on tumor/normal samples.  The scaffold matches the callers and analysis mode listed in the config to the modules/Snakefiles in order to include the applicable rules, but in such a way as to minimize code changes required to add new callers.  
 
 
 ### II.  To add callers
@@ -263,7 +293,9 @@ There are three steps required to add a caller:
 2.  Add a shell script to the `scripts/` directory to convert the new caller's output to bed format.  This can generally be done in three awk statements; to start, see `scripts/TEMPLATE_caller_to_bed.sh` file.  Like in step 1, ensure that you use the same caller name to name this script.
 3.  Create a container with the caller (and any other dependencies) installed.  This can be a singularity container or a docker container, preferably hosted on a public-facing hub.  You may start with `TEMPLATE_singularity_recipe`.  Be sure you are running the relevant rules in your snakefile within the container.
 
-# Citations:
+## Citations
+The original MoCCA-SV pipeline:
+- https://github.com/NCI-CGR/MoCCA-SV
 
 This pipeline was initially described here:
 - Ballew BJ, Yeager M, Hicks B, Zhu B. MoCCA-SV: A Flexible Ensemble Framework for Structural Variant Analysis. Poster session presented at: 19th Annual General Meeting of Advances in Genome Biology and Technology (AGBT); 2019 Feb 27 – Mar 3, Marco Island FL.  
