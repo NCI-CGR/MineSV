@@ -35,7 +35,7 @@ rule svaba_call:
         r = refBindPath + refFile,
         o = tempBindPath + svabaWkngDir + 'calls/',
         s = get_bam_container
-    singularity: 'shub://bballew/NGS_singularity_recipes:svaba'
+    singularity: 'library://weizhu365/mocca-sv/svaba:1.0.0'
     shell:
         'svaba run \
             -p {threads} \

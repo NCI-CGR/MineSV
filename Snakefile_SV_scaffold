@@ -1,10 +1,15 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 '''
 This snakefile collects variables from the config file, makes decisions regarding
 which rules/branches of the pipeline need to be included, and then starts running
 those rules.
 '''
+import sys
+
+# print(sys.executable)
+import subprocess
+# print(subprocess.check_output(['which', 'singularity']))
 
 import os
 import pysam
@@ -219,7 +224,7 @@ if callOnly or callAndAnnotate:
             ref + '.sa'
         params:
             f = refBindPath + refFile
-        singularity: 'shub://bballew/NGS_singularity_recipes:bwa_0-7-17'
+        singularity: 'library://weizhu365/mocca-sv/bwa_0-7-17:1.0.0'
         shell:
             'bwa index -a bwtsw {params.f}'
 
@@ -230,7 +235,7 @@ if callOnly or callAndAnnotate:
             ref + '.fai'
         params:
             f = refBindPath + refFile
-        singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+        singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
         shell:
             'samtools faidx {params.f}'
 
@@ -242,7 +247,7 @@ if callOnly or callAndAnnotate:
         params:
             f = refBindPath + refFile,
             o = refBindPath + refNoExt + '.dict'
-        singularity: 'shub://bballew/NGS_singularity_recipes:picard_2-18-15'
+        singularity: 'library://weizhu365/mocca-sv/picard_2-18-15:1.0.0'
         shell:
             'java -jar /bin/picard.jar CreateSequenceDictionary REFERENCE={params.f} OUTPUT={params.o}'
 

@@ -24,7 +24,8 @@ rule gridss_somatic_call:
     params: 
         ref = refBindPath + refFile,
         t=get_tumor_bam_container,
-        n=get_normal_bam_container
+        n=get_normal_bam_container,
+        w= gridssWkngDir + "{sample}_workingdir"
     resources: 
         mem_mb=40000
     log:
@@ -40,7 +41,7 @@ rule gridss_somatic_call:
                          --output {output.vcf} \
                          --assembly {output.assembly} \
                          --threads {threads} \
-                         --workingdir . \
+                         --workingdir {params.w} \
                          --jvmheap 30g \
                          --steps All  \
                          --maxcoverage 50000 \

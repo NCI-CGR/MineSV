@@ -323,7 +323,7 @@ rule pad_insertions:
         i = outputBindPath + 'compare_and_annotate/{caller}/bed_input/{sample}_SVunder10.bed',
         o = outputBindPath + 'compare_and_annotate/{caller}/bed_input/{sample}_SVunder10.padded.bed'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:bedtools_2-27-1'
+        'library://weizhu365/mocca-sv/bedtools_2-27-1:1.0.0'
     shell:
         'bash {params.path}pad_bed.sh {params.pad} {params.i} {params.genome} {params.o}'
 
@@ -371,7 +371,7 @@ rule compare_intra_SVs:
         dbs = list_caller_outputs_intra,
         out = outputBindPath + 'compare_and_annotate/{caller}/intrachromosomal/{sample}.compare'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:bedtools_2-27-1'
+        'library://weizhu365/mocca-sv/bedtools_2-27-1:1.0.0'
     shell:
         'bedtools intersect -a {params.query} -b {params.dbs} -filenames -f {params.overlap} -r -wao > {params.out}' 
         # would using -c instead of -wao obviate the following rule?  would have to do it on each caller one-by-one I think.  Not sure how this would work in a rule.
@@ -461,7 +461,7 @@ rule pad_inter_chrom_ends:
         outEnd1 = outputBindPath + 'compare_and_annotate/{caller}/bed_input/{sample}_end1.uniq.padded.bed',
         outEnd2 = outputBindPath + 'compare_and_annotate/{caller}/bed_input/{sample}_end2.uniq.padded.bed'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:bedtools_2-27-1'
+        'library://weizhu365/mocca-sv/bedtools_2-27-1:1.0.0'
     shell:
         'bash {params.path}pad_bed.sh {params.pad} {params.inEnd1} {params.genome} {params.outEnd1};'
         'bash {params.path}pad_bed.sh {params.pad} {params.inEnd2} {params.genome} {params.outEnd2}'
@@ -480,7 +480,7 @@ rule compare_inter_chr_end1:
         dbs = list_caller_outputs_end1,
         out = outputBindPath + 'compare_and_annotate/{caller}/interchromosomal/{sample}_end1.compare'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:bedtools_2-27-1'
+        'library://weizhu365/mocca-sv/bedtools_2-27-1:1.0.0'
     shell:
         'bedtools intersect -a {params.query} -b {params.dbs} -filenames -wao > {params.out}'
 
@@ -498,7 +498,7 @@ rule compare_inter_chr_end2:
         dbs = list_caller_outputs_end2,
         out = outputBindPath + 'compare_and_annotate/{caller}/interchromosomal/{sample}_end2.compare'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:bedtools_2-27-1'
+        'library://weizhu365/mocca-sv/bedtools_2-27-1:1.0.0'
     shell:
         'bedtools intersect -a {params.query} -b {params.dbs} -filenames -wao > {params.out}'
 
@@ -607,7 +607,7 @@ rule query_genomic_context:
         out1 = outputBindPath + 'compare_and_annotate/{caller}/interchromosomal/{genomicContextFile}_and_{sample}_end1',
         out2 = outputBindPath + 'compare_and_annotate/{caller}/interchromosomal/{genomicContextFile}_and_{sample}_end2'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:bedtools_2-27-1'
+        'library://weizhu365/mocca-sv/bedtools_2-27-1:1.0.0'
     shell:
         'bedtools intersect -a <(sort -k1,1 -k2,2n -k3,3n --stable {params.intra}) -b {params.db} -f {params.overlap} -c > {params.out};'
         'bedtools intersect -a <(sort -k1,1 -k2,2n -k3,3n --stable {params.inter1}) -b {params.db} -f {params.overlap} -c > {params.out1};'
@@ -707,7 +707,7 @@ rule query_public_datasets:
         # out1 = outputBindPath + 'compare_and_annotate/{caller}/interchromosomal/{publicDataFile}_and_{sample}_end1',
         # out2 = outputBindPath + 'compare_and_annotate/{caller}/interchromosomal/{publicDataFile}_and_{sample}_end2'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:bedtools_2-27-1'
+        'library://weizhu365/mocca-sv/bedtools_2-27-1:1.0.0'
     shell:
         'bedtools intersect -a <(sort -k1,1 -k2,2n -k3,3n --stable {params.intra}) -b {params.db} -f {params.overlap} -r -wao > {params.out}'
         # 'bedtools intersect -a {params.inter1} -b {params.db} -sorted -f {params.overlap} -r -wao > {params.out1};'
@@ -784,7 +784,7 @@ rule find_intersected_genes:
         out1 = outputBindPath + 'compare_and_annotate/{caller}/interchromosomal/{geneset}_and_{sample}_end1',
         out2 = outputBindPath + 'compare_and_annotate/{caller}/interchromosomal/{geneset}_and_{sample}_end2'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:bedtools_2-27-1'
+        'library://weizhu365/mocca-sv/bedtools_2-27-1:1.0.0'
     shell:
         'bedtools intersect -a <(sort -k1,1 -k2,2n -k3,3n --stable {params.intra}) -b {params.db} -wao > {params.out};'
         'bedtools intersect -a <(sort -k1,1 -k2,2n -k3,3n --stable {params.inter1}) -b {params.db} -wao > {params.out1};'

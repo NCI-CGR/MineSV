@@ -15,7 +15,7 @@ rule manta_filter_t_bams:
         t = get_tumor_bam_container
     benchmark:
         "benchmarks/manta_filter_t_bams/{sample}.tsv"
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         '{params.path}filter_bams.sh {params.t} {output.filtT}'
 
@@ -29,7 +29,7 @@ rule manta_filter_n_bams:
         n = get_normal_bam_container
     benchmark:
         "benchmarks/manta_filter_n_bams/{sample}.tsv"
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         '{params.path}filter_bams.sh {params.n} {output.filtN}'
 
@@ -38,7 +38,7 @@ rule manta_index_filtered_t_bams:
         mantaWkngDir + 'filtered_bams/{sample}_T.bam'
     output:
         mantaWkngDir + 'filtered_bams/{sample}_T.bam.bai'
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         'samtools index {input}'
 
@@ -47,7 +47,7 @@ rule manta_index_filtered_n_bams:
         mantaWkngDir + 'filtered_bams/{sample}_N.bam'
     output:
         mantaWkngDir + 'filtered_bams/{sample}_N.bam.bai'
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         'samtools index {input}'
 
@@ -65,7 +65,7 @@ rule manta_create_run_script:
     params:
         outParam = tempBindPath + 'manta_TN/{sample}',
         ref = refBindPath + refFile
-    singularity: 'shub://bballew/NGS_singularity_recipes:manta_1-4-0'
+    singularity: 'library://weizhu365/mocca-sv/manta_1-4-0:1.0.0'
     shell:
         'configManta.py \
             --normalBam {input.n} \
@@ -107,7 +107,7 @@ rule manta_call:
         "benchmarks/manta_call/{sample}.tsv"
     params:
         tempBindPath + 'manta_TN/{sample}/runWorkflow.py'
-    singularity: 'shub://bballew/NGS_singularity_recipes:manta_1-4-0'
+    singularity: 'library://weizhu365/mocca-sv/manta_1-4-0:1.0.0'
     shell:
         '{params} -m local -j {threads}' 
 

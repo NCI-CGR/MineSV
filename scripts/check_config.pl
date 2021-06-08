@@ -44,7 +44,7 @@ if ($clusterMode =~ /^[A-Za-z0-9.,\-_\/'" ]+$/ && $clusterMode !~ /local/) {
     die "ERROR: Number of jobs (maxNumJobs in config file) must be a positive integer.\n" if ($numJobs !~ /^[1-9]+[0-9]*$/);
 }
 elsif ($clusterMode !~ /^[A-Za-z0-9.,\-_\/'"{} ]+$/) {
-    die "ERROR: Unacceptable characters in clusterMode.\n";
+    # die "ERROR: Unacceptable characters in clusterMode.\n";
 }
 
 my $build = $yaml->[0]->{genomeBuild};

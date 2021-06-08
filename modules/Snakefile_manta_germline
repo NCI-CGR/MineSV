@@ -15,7 +15,7 @@ rule manta_filter_bams:
         bam = get_bam_container
     benchmark:
         "benchmarks/manta_filter_bams/{sample}.tsv"
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         '{params.path}filter_bams.sh {params.bam} {output}'
 
@@ -24,7 +24,7 @@ rule manta_index_filtered_bams:
         mantaWkngDir + 'filtered_bams/{sample}.bam'
     output:
         mantaWkngDir + 'filtered_bams/{sample}.bam.bai'
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         'samtools index {input}'
 
@@ -40,7 +40,7 @@ rule manta_create_run_script:
     params:
         outParam = tempBindPath + 'manta_germline/{sample}',
         ref = refBindPath + refFile
-    singularity: 'shub://bballew/NGS_singularity_recipes:manta_1-4-0'
+    singularity: 'library://weizhu365/mocca-sv/manta_1-4-0:1.0.0'
     shell:
         'configManta.py \
             --bam {input.bam} \
@@ -71,7 +71,7 @@ rule manta_call:
     threads: mantaNt
     benchmark:
         "benchmarks/manta_call/{sample}.tsv"
-    singularity: 'shub://bballew/NGS_singularity_recipes:manta_1-4-0'
+    singularity: 'library://weizhu365/mocca-sv/manta_1-4-0:1.0.0'
     params:
         tempBindPath + 'manta_germline/{sample}/runWorkflow.py'
     shell:

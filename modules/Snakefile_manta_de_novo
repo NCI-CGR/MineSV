@@ -13,7 +13,7 @@ rule manta_filter_p1_bams:
     params:
         path = execBindPath + 'scripts/',
         p1 = get_parent1_bam_container
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         '{params.path}filter_bams.sh {params.p1} {output.filtP1}'
 
@@ -25,7 +25,7 @@ rule manta_filter_p2_bams:
     params:
         path = execBindPath + 'scripts/',
         p2 = get_parent2_bam_container
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         '{params.path}filter_bams.sh {params.p2} {output.filtP2}'
 
@@ -37,7 +37,7 @@ rule manta_filter_kid_bams:
     params:
         path = execBindPath + 'scripts/',
         kid = get_kid_bam_container
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         '{params.path}filter_bams.sh {params.kid} {output.filtKid}'
 
@@ -50,7 +50,7 @@ rule manta_index_filtered_bams:
         p1 = mantaWkngDir + 'filtered_bams/{sample}_p1.bam.bai',
         p2 = mantaWkngDir + 'filtered_bams/{sample}_p2.bam.bai',
         kid = mantaWkngDir + 'filtered_bams/{sample}_kid.bam.bai'
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         'samtools index {input.filtP1};'
         'samtools index {input.filtP2};'
@@ -72,7 +72,7 @@ rule manta_create_run_script:
     params:
         outParam = tempBindPath + 'manta_de_novo/{sample}',
         ref = refBindPath + refFile
-    singularity: 'shub://bballew/NGS_singularity_recipes:manta_1-4-0'
+    singularity: 'library://weizhu365/mocca-sv/manta_1-4-0:1.0.0'
     shell:
         'configManta.py \
             --bam {input.kid} \
@@ -107,7 +107,7 @@ rule manta_call:
     params:
         tempBindPath + 'manta_de_novo/{sample}/runWorkflow.py'
     threads: mantaNt
-    singularity: 'shub://bballew/NGS_singularity_recipes:manta_1-4-0'
+    singularity: 'library://weizhu365/mocca-sv/manta_1-4-0:1.0.0'
     shell:
         '{params} -m local -j {threads}' 
 
@@ -175,7 +175,7 @@ rule manta_de_novo_scoring:
         p1 = get_p1_SM,
         p2 = get_p2_SM,
         kid = get_kid_SM
-    singularity: 'shub://bballew/NGS_singularity_recipes:manta_1-4-0'
+    singularity: 'library://weizhu365/mocca-sv/manta_1-4-0:1.0.0'
     shell:
         'gunzip {input};'
         '/manta-1.4.0.centos6_x86_64/libexec/denovo_scoring.py {params.i_gunzip} {params.kid} {params.p1} {params.p2}'

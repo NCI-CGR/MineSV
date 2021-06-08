@@ -43,7 +43,7 @@ rule svaba_call:
         p2 = get_parent2_bam_container,
         p1 = get_parent1_bam_container,
         k = get_kid_bam_container
-    singularity: 'shub://bballew/NGS_singularity_recipes:svaba'
+    singularity: 'library://weizhu365/mocca-sv/svaba:1.0.0'
     shell:
         'svaba run \
             -p {threads} \

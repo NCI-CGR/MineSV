@@ -16,7 +16,7 @@ rule delly_call_individual_samples_p1:
         r = refBindPath + refFile,
         i = get_parent1_bam_container,
         x = '/delly/excludeTemplates/human.hg19.excl.tsv'
-    singularity: 'shub://bballew/NGS_singularity_recipes:delly_0-8-1'
+    singularity: 'library://weizhu365/mocca-sv/delly_0-8-1:1.0.0'
     shell:
         'delly call \
             -t {params.tp} \
@@ -37,7 +37,7 @@ rule delly_call_individual_samples_p2:
         r = refBindPath + refFile,
         i = get_parent2_bam_container,
         x = '/delly/excludeTemplates/human.hg19.excl.tsv'  ############## will this work with non-chr data?
-    singularity: 'shub://bballew/NGS_singularity_recipes:delly_0-8-1'
+    singularity: 'library://weizhu365/mocca-sv/delly_0-8-1:1.0.0'
     shell:
         'delly call \
             -t {params.tp} \
@@ -58,7 +58,7 @@ rule delly_call_individual_samples_kid:
         r = refBindPath + refFile,
         i = get_kid_bam_container,
         x = '/delly/excludeTemplates/human.hg19.excl.tsv'
-    singularity: 'shub://bballew/NGS_singularity_recipes:delly_0-8-1'
+    singularity: 'library://weizhu365/mocca-sv/delly_0-8-1:1.0.0'
     shell:
         'delly call \
             -t {params.tp} \
@@ -80,7 +80,7 @@ rule delly_merge_SVs_by_trio:
         dellyWkngDir + 'merged_by_trio/{sample}_trio_{type}.bcf'
     params:
         tp = '{type}'
-    singularity: 'shub://bballew/NGS_singularity_recipes:delly_0-8-1'
+    singularity: 'library://weizhu365/mocca-sv/delly_0-8-1:1.0.0'
     shell:
         'delly merge \
             -m 500 \
@@ -106,7 +106,7 @@ rule delly_re_genotype_p1:
         r = refBindPath + refFile,
         bam = get_parent1_bam_container,
         x = '/delly/excludeTemplates/human.hg19.excl.tsv'
-    singularity: 'shub://bballew/NGS_singularity_recipes:delly_0-8-1'
+    singularity: 'library://weizhu365/mocca-sv/delly_0-8-1:1.0.0'
     shell:
         'delly call \
             -t {params.tp} \
@@ -128,7 +128,7 @@ rule delly_re_genotype_p2:
         r = refBindPath + refFile,
         bam = get_parent2_bam_container,
         x = '/delly/excludeTemplates/human.hg19.excl.tsv'
-    singularity: 'shub://bballew/NGS_singularity_recipes:delly_0-8-1'
+    singularity: 'library://weizhu365/mocca-sv/delly_0-8-1:1.0.0'
     shell:
         'delly call \
             -t {params.tp} \
@@ -150,7 +150,7 @@ rule delly_re_genotype_kid:
         r = refBindPath + refFile,
         bam = get_kid_bam_container,
         x = '/delly/excludeTemplates/human.hg19.excl.tsv'
-    singularity: 'shub://bballew/NGS_singularity_recipes:delly_0-8-1'
+    singularity: 'library://weizhu365/mocca-sv/delly_0-8-1:1.0.0'
     shell:
         'delly call \
             -t {params.tp} \
@@ -168,7 +168,7 @@ rule delly_merge_regeno_by_trio:
     output:
         dellyWkngDir + 're-geno_merged_by_trio/{sample}_trio_{type}.bcf'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:bcftools_1-9'
+        'library://weizhu365/mocca-sv/bcftools_1-9:1.0.0'
     shell:
         'bcftools merge \
             -m id \
@@ -181,7 +181,7 @@ rule delly_filter_de_novos:
         dellyWkngDir + 're-geno_merged_by_trio/{sample}_trio_{type}.bcf'
     output:
         dellyWkngDir + 'de_novo/{sample}kid_{type}.vcf'
-    singularity: 'shub://bballew/NGS_singularity_recipes:bcftools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/bcftools_1-9:1.0.0'
     shell:
         "bcftools view {input} | awk '$1~/^#/{{print $0; NEXT}} $10!~/^0\/0/ && $11~/^0\/0/ && $12~/0\/0/{{print $0}}' > {output}"
 
@@ -192,7 +192,7 @@ rule delly_filter_de_novos:
 #         dellyWkngDir + 'de_novo/{sample}kid_{type}.bcf.csi'
 #     params:
 #         i = outputBindPath + dellyWkngDir + 'de_novo/{sample}kid_{type}.bcf'
-#     singularity: 'shub://bballew/NGS_singularity_recipes:bcftools_1-9'
+#     singularity: 'library://weizhu365/mocca-sv/bcftools_1-9:1.0.0'
 #     shell:
 #         'bcftools index {params.i}'
 
@@ -202,7 +202,7 @@ rule delly_combine_output:
     output:
         dellyWkngDir + 'de_novo/{sample}kid_all.txt'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:bcftools_1-9'
+        'library://weizhu365/mocca-sv/bcftools_1-9:1.0.0'
     shell:
         'bcftools concat -a {input} | sort -k1,1 -k2,2n > {output}'
 

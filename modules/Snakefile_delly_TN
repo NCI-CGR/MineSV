@@ -20,7 +20,7 @@ rule delly_call:
         r = refBindPath + refFile,
         t = get_tumor_bam_container,
         n = get_normal_bam_container
-    singularity: 'shub://bballew/NGS_singularity_recipes:delly_0-8-1'
+    singularity: 'library://weizhu365/mocca-sv/delly_0-8-1:1.0.0'
     shell:
         'delly call \
             -t {params.tp} \
@@ -44,7 +44,7 @@ rule delly_create_tsv:
         n = get_normal_bam_container
     benchmark:
         "benchmarks/delly_create_tsv/{sample}.tsv"
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         '{params.path}create_tsv.sh {params.t} tumor {output};'
         '{params.path}create_tsv.sh {params.n} control {output}'
@@ -60,7 +60,7 @@ rule delly_pre_filter:
         tp = '{type}'
     benchmark:
         "benchmarks/delly_pre_filter/{sample}_{type}.tsv"
-    singularity: 'shub://bballew/NGS_singularity_recipes:delly_0-8-1'
+    singularity: 'library://weizhu365/mocca-sv/delly_0-8-1:1.0.0'
     shell:
         'delly filter \
             -f somatic \
@@ -76,7 +76,7 @@ rule delly_combine_output:
     output:
         dellyWkngDir + 'somatic/{sample}_all.txt'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:bcftools_1-9'
+        'library://weizhu365/mocca-sv/bcftools_1-9:1.0.0'
     shell:
         'bcftools concat -a {input} | sort -k1,1 -k2,2n > {output}'
 

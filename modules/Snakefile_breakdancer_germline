@@ -20,7 +20,7 @@ rule breakdancer_config:
     benchmark:
         "benchmarks/breakdancer_config/{sample}.tsv"
     singularity:
-        'shub://bballew/NGS_singularity_recipes:breakdancer_1-4-5'  # contains samtools and breakdancer
+        'library://weizhu365/mocca-sv/breakdancer_1-4-5:1.0.0'  # contains samtools and breakdancer
     shell:
         'bam2cfg.pl -g -h {params} > {output}'
 
@@ -37,7 +37,7 @@ rule breakdancer_bam_qc:
         bam = get_bam_container
     benchmark:
         "benchmarks/breakdancer_bam_qc/{sample}.tsv"
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         '{params.path}breakdancer_cfg_qc.sh {input.cfg} {output.t1};'
         '{params.path}breakdancer_qc.sh {params.bam} {input.cfg} {output.t2};'
@@ -51,7 +51,7 @@ rule breakdancer_run_per_chrom:
     params:
         chrom = chrPrefix + '{chr}'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:breakdancer_1-4-5'
+        'library://weizhu365/mocca-sv/breakdancer_1-4-5:1.0.0'
     benchmark:
         "benchmarks/breakdancer_run_per_chrom/{chr}_{sample}.tsv"
     shell:
@@ -63,7 +63,7 @@ rule breakdancer_run_translocations:
     output:
         breakdancerWkngDir + 'calls/transl.{sample}.out'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:breakdancer_1-4-5'
+        'library://weizhu365/mocca-sv/breakdancer_1-4-5:1.0.0'
     benchmark:
         "benchmarks/breakdancer_run_translocation/{sample}.tsv"
     shell:

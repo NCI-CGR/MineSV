@@ -16,7 +16,7 @@ rule delly_call_individual_samples:
         r = refBindPath + refFile,
         i = get_bam_container,
         x = '/delly/excludeTemplates/human.hg19.excl.tsv'
-    singularity: 'shub://bballew/NGS_singularity_recipes:delly_0-8-1'
+    singularity: 'library://weizhu365/mocca-sv/delly_0-8-1:1.0.0'
     shell:
         'delly call \
             -t {params.tp} \
@@ -37,7 +37,7 @@ rule delly_merge_SVs_by_cohort:
         dellyWkngDir + 'merged_by_cohort/merged_{type}.bcf'
     params:
         tp = '{type}'
-    singularity: 'shub://bballew/NGS_singularity_recipes:delly_0-8-1'
+    singularity: 'library://weizhu365/mocca-sv/delly_0-8-1:1.0.0'
     shell:
         'delly merge \
             -m 500 \
@@ -63,7 +63,7 @@ rule delly_re_genotype:
         r = refBindPath + refFile,
         bam = get_bam_container,
         x = '/delly/excludeTemplates/human.hg19.excl.tsv'
-    singularity: 'shub://bballew/NGS_singularity_recipes:delly_0-8-1'
+    singularity: 'library://weizhu365/mocca-sv/delly_0-8-1:1.0.0'
     shell:
         'delly call \
             -t {params.tp} \
@@ -79,7 +79,7 @@ rule delly_merge_regeno_by_cohort:
     output:
         dellyWkngDir + 're-geno_merged_by_cohort/merged_{type}.bcf'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:bcftools_1-9'
+        'library://weizhu365/mocca-sv/bcftools_1-9:1.0.0'
     shell:
         'bcftools merge \
             -m id \
@@ -106,7 +106,7 @@ rule delly_combine_types:
     output:
         dellyWkngDir + 'germline/merged_germline_all.txt'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:bcftools_1-9'
+        'library://weizhu365/mocca-sv/bcftools_1-9:1.0.0'
     shell:
         'bcftools concat -a {input} | sort -k1,1 -k2,2n > {output}'
 

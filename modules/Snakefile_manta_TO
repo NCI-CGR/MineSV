@@ -13,7 +13,7 @@ rule manta_filter_bams:
     params:
         path = execBindPath + 'scripts/',
         bam = get_bam_container
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         '{params.path}filter_bams.sh {params.bam} {output}'
 
@@ -22,7 +22,7 @@ rule manta_index_filtered_bams:
         mantaWkngDir + 'filtered_bams/{sample}.bam'
     output:
         mantaWkngDir + 'filtered_bams/{sample}.bam.bai'
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         'samtools index {input}'
 
@@ -37,7 +37,7 @@ rule manta_create_run_script:
     params:
         outParam = tempBindPath + 'manta_TO/{sample}',
         ref = refBindPath + refFile
-    singularity: 'shub://bballew/NGS_singularity_recipes:manta_1-4-0'
+    singularity: 'library://weizhu365/mocca-sv/manta_1-4-0:1.0.0'
     shell:
         'configManta.py \
             --tumorBam {input.bam} \
@@ -64,7 +64,7 @@ rule manta_call:
         mantaTempDir + '{sample}/results/stats/svCandidateGenerationStats.xml',
         mantaTempDir + '{sample}/results/stats/svLocusGraphStats.tsv'
     threads: mantaNt
-    singularity: 'shub://bballew/NGS_singularity_recipes:manta_1-4-0'
+    singularity: 'library://weizhu365/mocca-sv/manta_1-4-0:1.0.0'
     shell:
         '{input} -m local -j {threads}' 
 

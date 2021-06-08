@@ -24,7 +24,7 @@ rule breakdancer_config:
         p2 = get_parent2_bam_container,
         k = get_kid_bam_container
     singularity:
-        'shub://bballew/NGS_singularity_recipes:breakdancer_1-4-5'  # contains samtools and breakdancer
+        'library://weizhu365/mocca-sv/breakdancer_1-4-5:1.0.0'  # contains samtools and breakdancer
     shell:
         'bam2cfg.pl -g -h {params.k} {params.p1} {params.p2} > {output}'
 
@@ -45,7 +45,7 @@ rule breakdancer_bam_qc:
         p1 = get_parent1_bam_container,
         p2 = get_parent2_bam_container,
         kid = get_kid_bam_container
-    singularity: 'shub://bballew/NGS_singularity_recipes:samtools_1-9'
+    singularity: 'library://weizhu365/mocca-sv/samtools_1-9:1.0.0'
     shell:
         '{params.path}breakdancer_cfg_qc.sh {input.cfg} {output.t1};'
         '{params.path}breakdancer_qc.sh {params.p1} {input.cfg} {output.t2};'
@@ -61,7 +61,7 @@ rule breakdancer_run_per_chrom:
     params:
         chrom = chrPrefix + '{chr}'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:breakdancer_1-4-5'
+        'library://weizhu365/mocca-sv/breakdancer_1-4-5:1.0.0'
     shell:
         'breakdancer-max {input} -o {params.chrom} > {output}'
 
@@ -71,7 +71,7 @@ rule breakdancer_run_translocations:
     output:
         breakdancerWkngDir + 'calls/transl.{sample}.out'
     singularity:
-        'shub://bballew/NGS_singularity_recipes:breakdancer_1-4-5'
+        'library://weizhu365/mocca-sv/breakdancer_1-4-5:1.0.0'
     shell:
         'breakdancer-max {input} -t > {output}'
 
