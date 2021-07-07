@@ -1,6 +1,6 @@
 *.svg
 example_*
-#annotation*  
+annotation/* 
     # will need this, but too big for github...
 annotation/dbVar_data/
 annotation/UCSC_track_data/

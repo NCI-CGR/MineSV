@@ -96,14 +96,14 @@ PUBLIC_DATA_BEDS = ['1KG', 'ClinGen', 'ClinVar', 'DGV']
 GENESET_BEDS = ['RefSeq']
 
 # local paths
-genomicContextPath = execDir + 'annotation/genomic_context/hg19_chr/' if genomeBuild == 'hg19' else execDir + 'annotation/genomic_context/GRCh37_no_chr/'
-publicDatasetsPath = execDir + 'annotation/public_datasets/hg19_chr/' if genomeBuild == 'hg19' else execDir + 'annotation/public_datasets/GRCh37_no_chr/'
-genesPath = execDir + 'annotation/genes/hg19_chr/' if genomeBuild == 'hg19' else execDir + 'annotation/genes/GRCh37_no_chr/'
+genomicContextPath = execDir + 'annotation/genomic_context/%s/' % genomeBuild 
+publicDatasetsPath = execDir + 'annotation/public_datasets/%s/' % genomeBuild
+genesPath = execDir + 'annotation/genes/%s/' % genomeBuild
 
 # bind points in container
-genomicContextBindPath = execBindPath + 'annotation/genomic_context/hg19_chr/' if genomeBuild == 'hg19' else execBindPath + 'annotation/genomic_context/GRCh37_no_chr/'
-publicDatasetsBindPath = execBindPath + 'annotation/public_datasets/hg19_chr/' if genomeBuild == 'hg19' else execBindPath + 'annotation/public_datasets/GRCh37_no_chr/'
-genesBindPath = execBindPath + 'annotation/genes/hg19_chr/' if genomeBuild == 'hg19' else execBindPath + 'annotation/genes/GRCh37_no_chr/'
+genomicContextBindPath = execBindPath + 'annotation/genomic_context/%s/' % genomeBuild 
+publicDatasetsBindPath = execBindPath + 'annotation/public_datasets/%s/' % genomeBuild 
+genesBindPath = execBindPath + 'annotation/genes/%s/' % genomeBuild
 
 
 
@@ -317,7 +317,7 @@ rule pad_insertions:
     output:
         temp(annOutDir + '{caller}/bed_input/{sample}_SVunder10.padded.bed')
     params:
-        genome = execBindPath + 'annotation/human_g1k_v37.genome',
+        genome = execBindPath + 'annotation/human_%s.genome' % genomeBuild,
         pad = insertionPad,
         path = execBindPath + 'scripts/',
         i = outputBindPath + 'compare_and_annotate/{caller}/bed_input/{sample}_SVunder10.bed',
