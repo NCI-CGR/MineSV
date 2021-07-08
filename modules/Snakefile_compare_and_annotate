@@ -453,7 +453,7 @@ rule pad_inter_chrom_ends:
         end1 = temp(annOutDir + '{caller}/bed_input/{sample}_end1.uniq.padded.bed'),
         end2 = temp(annOutDir + '{caller}/bed_input/{sample}_end2.uniq.padded.bed')
     params:
-        genome = execBindPath + 'annotation/human_g1k_v37.genome',
+        genome = execBindPath + 'annotation/human_%s.genome' % genomeBuild,
         pad = interchromPad,
         path = execBindPath + 'scripts/',
         inEnd1 = outputBindPath + 'compare_and_annotate/{caller}/bed_input/{sample}_end1.uniq.bed',
