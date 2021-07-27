@@ -41,7 +41,7 @@ while ($newline = <FIN>)
 {
 	$NR = $.;
 	chomp $newline;
-	my (undef, @data) = split (/\t/, $newline);
+	my (@data) = split (/\t/, $newline);
 	my $event = $data[0].'_'.$data[2];
 	my @ids;
 	if ($data[3] =~ /\//)

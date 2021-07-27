@@ -31,7 +31,7 @@ rule gridss_call:
         logDir + 'gridss_call.{sample}.log'    
     threads: gridssNt 
     singularity: 
-        'library://weizhu365/mocca-sv/gridss_2-9-4:1.0.0'
+        'library://weizhu365/mocca-sv/gridss_2-9-4:1.0.1'
     shell: 
         """
             gridss.sh --reference {params.ref} \

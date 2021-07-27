@@ -10,7 +10,9 @@ gridssNt = config['maxThreads'][i]
 # if the caller is multi-threaded:
 i = CALLERS.index("gridss")
 gridssNt = config['maxThreads'][i]
-UCSC_HG19 = "BSgenome.Hsapiens.UCSC.hg19"
+
+genomeBuild = config['genomeBuild']
+UCSC_REF = "BSgenome.Hsapiens.UCSC.hg38" if genomeBuild == 'hg38' else "BSgenome.Hsapiens.UCSC.hg19"
 
 
 rule gridss_somatic_call:
@@ -34,7 +36,7 @@ rule gridss_somatic_call:
         "benchmarks/gridss_somatic_call/{sample}.tsv" 
     threads: gridssNt 
     singularity: 
-        'library://weizhu365/mocca-sv/gridss_2-9-4:1.0.0'
+        'library://weizhu365/mocca-sv/gridss_2-9-4:1.0.1'
     shell: 
         """
             gridss.sh --reference {params.ref} \
@@ -58,13 +60,13 @@ rule gridss_somatic_filter:
     benchmark:
         "benchmarks/gridss_somatic_filter/{sample}.tsv"
     params: 
-        ref=UCSC_HG19,
+        ref=UCSC_REF,
         somatic=gridssWkngDir + "{sample}_somatic.vcf",
         full=gridssWkngDir + "{sample}_full.vcf"
     log:
         logDir + 'gridss_stomatic_filter.{sample}.log'
     singularity: 
-        'library://weizhu365/mocca-sv/gridss_2-9-4:1.0.0'
+        'library://weizhu365/mocca-sv/gridss_2-9-4:1.0.1'
     shell:
         """
             gridss_somatic_filter.R --ref {params.ref}  \

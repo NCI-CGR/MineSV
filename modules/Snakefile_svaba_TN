@@ -41,6 +41,8 @@ rule svaba_call:
         o = tempBindPath + svabaWkngDir + 'calls/',
         t = get_tumor_bam_container,
         n = get_normal_bam_container
+    resources: 
+        mem_mb=100000
     singularity: 'library://weizhu365/mocca-sv/svaba:1.0.0'
     shell:
         'svaba run \

@@ -107,7 +107,9 @@ def get_tumor_bam(wildcards):
 
 def get_tumor_index(wildcards):
     (tumor, normal) = bamDict[wildcards.sample]
-    return tumor + '.bai'
+
+    ext = '.bai' if tumor.endswith('.bam') else '.crai'
+    return tumor + ext
 
 def get_normal_bam(wildcards):
     (tumor, normal) = bamDict[wildcards.sample]
@@ -115,7 +117,9 @@ def get_normal_bam(wildcards):
 
 def get_normal_index(wildcards):
     (tumor, normal) = bamDict[wildcards.sample]
-    return normal + '.bai'
+
+    ext = '.bai' if normal.endswith('.bam') else '.crai'
+    return normal + ext
 
 def get_tumor_bam_container(wildcards):
     (tumor, normal) = containerDict[wildcards.sample]
