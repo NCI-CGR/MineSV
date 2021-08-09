@@ -848,7 +848,7 @@ rule create_superset_intra:
         s = annOutDir + 'intrachromosomal_SVs_{sample}',
         t = directory(localTempDir + 'sort_intra/{sample}/')
     shell:
-        "cat {input} | sed '1!{{/^line_num/d;}}' | cut --complement -f1 | sort -T {output.t} -k1,1n -k2,2n > {output.s}"
+        "cat {input} | sed '1!{{/^line_num/d;}}' | cut --complement -f1 | LC_ALL=C sort -T {output.t} -k1,1 -k2,2n > {output.s}"
 
 rule create_superset_inter:
     input:
@@ -857,4 +857,4 @@ rule create_superset_inter:
         s = annOutDir + 'interchromosomal_SVs_{sample}',
         t = directory(localTempDir + 'sort_inter/{sample}/')
     shell:
-        "cat {input} | sed '1!{{/^line_num/d;}}' | cut --complement -f1 | sort -T {output.t} -k1,1n -k2,2n > {output.s}"
+        "cat {input} | sed '1!{{/^line_num/d;}}' | cut --complement -f1 | LC_ALL=C sort -T {output.t} -k1,1 -k2,2n > {output.s}"
