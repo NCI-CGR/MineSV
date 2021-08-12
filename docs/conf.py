@@ -31,7 +31,9 @@ release = '0.4'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'm2r2'
+    'm2r2',    
+    'sphinx.ext.viewcode',
+    'sphinx.ext.githubpages'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
