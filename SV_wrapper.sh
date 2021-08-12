@@ -62,18 +62,18 @@ git -C "${execDir}" describe 2> /dev/null || die "Unable to determine pipeline v
 echo ""
 
 DATE=$(date +"%Y%m%d%H%M")
-cd $outDir  # snakemake passes $PWD to singularity and binds it as the home directory, and then works relative to that path.
+# cd $outDir  # snakemake passes $PWD to singularity and binds it as the home directory, and then works relative to that path.
 sing_arg='"'$(echo "-B ${inDir}:/input,${tempDir}:/scratch,${refDir}:/ref,${outDir}:/output,${execDir}:/exec")'"'
 
 cmd=""
 if [ "$clusterMode" == '"'"local"'"' ]; then
-    cmd="conf=$configFile snakemake -p -s ${execDir}/Snakefile_SV_scaffold --use-singularity --singularity-args ${sing_arg} --rerun-incomplete &> ${logDir}/MineSV_${DATE}.out"
+    cmd="conf=$configFile snakemake --cores $numJobs -p -s ${execDir}/Snakefile_SV_scaffold --use-singularity --singularity-args ${sing_arg} --rerun-incomplete &> ${logDir}/MineSV_${DATE}.out"
 elif [ "$clusterMode" = '"'"unlock"'"' ]; then  # put in a convenience unlock
-    cmd="conf=$configFile snakemake -p -s ${execDir}/Snakefile_SV_scaffold --unlock"
+    cmd="conf=$configFile snakemake --cores $numJobs -p -s ${execDir}/Snakefile_SV_scaffold --unlock"
 elif [ "$clusterMode" = '"'"dryrun"'"' ]; then  # put in a convenience dry run
-    cmd="conf=$configFile snakemake -n -p -s ${execDir}/Snakefile_SV_scaffold"
+    cmd="conf=$configFile snakemake --cores $numJobs -n -p -s ${execDir}/Snakefile_SV_scaffold"
 else
-    cmd="conf=$configFile snakemake -p -s ${execDir}/Snakefile_SV_scaffold --use-singularity --singularity-args ${sing_arg} --rerun-incomplete --cluster ${clusterMode} --jobs $numJobs --latency-wait ${latency} &> ${logDir}/MineSV_${DATE}.out"
+    cmd="conf=$configFile snakemake --cores $numJobs  -p -s ${execDir}/Snakefile_SV_scaffold --use-singularity --singularity-args ${sing_arg} --rerun-incomplete --cluster ${clusterMode} --jobs $numJobs --latency-wait ${latency} &> ${logDir}/MineSV_${DATE}.out"
     # --nt - keep temp files - can use while developing, especially for compare and annotate module.
 fi
 
