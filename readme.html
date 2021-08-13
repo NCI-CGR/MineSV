@@ -1,93 +1,199 @@
 
+
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>README &mdash; MineSV 0.4 documentation</title>
+  
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
-    <title>README &#8212; MineSV 0.4 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Welcome to MineSV’s documentation!" href="index.html" />
+    <link rel="prev" title="Welcome to MineSV’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head><body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
           
 
-          <div class="body" role="main">
+          
+            <a href="index.html" class="icon icon-home"> MineSV
+          
+
+          
+          </a>
+
+          
             
-  <section id="readme">
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">README</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#i-description">I.  Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ii-a-little-history-about-minesv">II. A little history about MineSV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iii-dependencies">III.  Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iv-analysis-modes">IV.  Analysis modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v-run-modes">V.  Run modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vi-callers-available">VI.  Callers available</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#user-s-guide">User’s guide</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#i-input-requirements">I.  Input requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ii-sample-file-formats">II.  Sample file formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iii-comparison-and-annotation">III.  Comparison and annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iv-editing-the-config-yaml">IV.  Editing the config.yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v-to-run">V.  To run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vi-to-monitor-pipeline">VI.  To monitor pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vi-output">VI. Output</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#developer-s-guide">Developer’s guide</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#i-pipeline-architecture">I.  Pipeline architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ii-to-add-callers">II.  To add callers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#citations">Citations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MineSV</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>README</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/readme.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="readme">
 <h1>README<a class="headerlink" href="#readme" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
-<ul class="simple">
-<li><p><a class="reference external" href="#overview">Overview</a></p>
-<ul>
-<li><p><a class="reference external" href="#i-description">I.  Description</a></p></li>
-<li><p><a class="reference external" href="#ii-a-little-history-about-minesv">II. A little history about MineSV</a></p></li>
-<li><p><a class="reference external" href="#iii-dependencies">III.  Dependencies</a></p></li>
-<li><p><a class="reference external" href="#iv-analysis-modes">IV.  Analysis modes</a></p></li>
-<li><p><a class="reference external" href="#v-run-modes">V.  Run modes</a></p></li>
-<li><p><a class="reference external" href="#vi-callers-available">VI.  Callers available</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference external" href="#users-guide">User’s guide</a></p>
-<ul>
-<li><p><a class="reference external" href="#i-input-requirements">I.  Input requirements</a></p>
-<ul>
-<li><p><a class="reference external" href="#a-required-for-all-run-modes">A.  Required for all run modes:</a></p></li>
-<li><p><a class="reference external" href="#b-required-for-callonly-or-callandannotate-run-modes">B.  Required for **callOnly** or **callAndAnnotate** run modes:</a></p></li>
-<li><p><a class="reference external" href="#c-required-for-annotateonly-run-mode">C.  Required for annotateOnly run mode:</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference external" href="#ii-sample-file-formats">II.  Sample file formats</a></p></li>
-<li><p><a class="reference external" href="#iii-comparison-and-annotation">III.  Comparison and annotation</a></p>
-<ul>
-<li><p><a class="reference external" href="#a-sv-comparison-methods">A. SV comparison methods</a></p></li>
-<li><p><a class="reference external" href="#b-annotation">B. Annotation</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference external" href="#iv-editing-the-configyaml">IV.  Editing the config.yaml</a></p></li>
-<li><p><a class="reference external" href="#v-to-run">V.  To run</a></p></li>
-<li><p><a class="reference external" href="#vi-to-monitor-pipeline">VI.  To monitor pipeline</a></p></li>
-<li><p><a class="reference external" href="#vi-output">VI. Output</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference external" href="#developers-guide">Developer’s guide</a></p>
-<ul>
-<li><p><a class="reference external" href="#i-pipeline-architecture">I.  Pipeline architecture</a></p></li>
-<li><p><a class="reference external" href="#ii-to-add-callers">II.  To add callers</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference external" href="#citations">Citations</a></p></li>
-</ul>
-<section id="id1">
-<h2>Overview<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<section id="id2">
-<h3>I.  Description<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="i-description">
+<h2>I.  Description<a class="headerlink" href="#i-description" title="Permalink to this headline">¶</a></h2>
 <p>This pipeline coordinates and monitors the submission of a list of bams for structural variant discovery, and comparison/annotation of results.  You may opt to run calling alone, annotation alone, or both sequentially.  Multiple callers are included with MineSV, and additional callers may be added.  The pipeline may be run on an HPC or in a local environment.  Details are described in subsequent sections.</p>
-</section>
-<section id="id3">
-<h3>II. A little history about MineSV<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>MineSV was started to be developed at the NCI-Cancer Genomics Research Laboratory (NCI-CGR) in 2018, with the original name <a href="#id4"><span class="problematic" id="id5">**</span></a><em>MoCCA-SV</em>** (Modular Calling, Comparison, and Annotation of Structural Variants). It was renamed as <a href="#id6"><span class="problematic" id="id7">**</span></a><em>MineSV</em>** in June 2021.</p>
-</section>
-<section id="id8">
-<h3>III.  Dependencies<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="ii-a-little-history-about-minesv">
+<h2>II. A little history about MineSV<a class="headerlink" href="#ii-a-little-history-about-minesv" title="Permalink to this headline">¶</a></h2>
+<p>MineSV was started to be developed at the NCI-Cancer Genomics Research Laboratory (NCI-CGR) in 2018, with the original name <a href="#id1"><span class="problematic" id="id2">**</span></a><em>MoCCA-SV</em>** (Modular Calling, Comparison, and Annotation of Structural Variants). It was renamed as <a href="#id3"><span class="problematic" id="id4">**</span></a><em>MineSV</em>** in June 2021.</p>
+</div>
+<div class="section" id="iii-dependencies">
+<h2>III.  Dependencies<a class="headerlink" href="#iii-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>To run MineSV, you will need:</p>
 <ul class="simple">
 <li><p>python v3</p></li>
@@ -95,9 +201,9 @@
 <li><p>perl v5.18+</p></li>
 <li><p>singularity v2+</p></li>
 </ul>
-</section>
-<section id="id9">
-<h3>IV.  Analysis modes<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="iv-analysis-modes">
+<h2>IV.  Analysis modes<a class="headerlink" href="#iv-analysis-modes" title="Permalink to this headline">¶</a></h2>
 <p>One of the following analysis modes may be specified in the configuration file:</p>
 <ol class="arabic simple">
 <li><p>Tumor/Normal: for matched tumor/normal pairs; set analysisMode to ‘TN’</p></li>
@@ -105,18 +211,18 @@
 <li><p>De novo: for trios to detect de novo SVs in the proband; set analysisMode to ‘de_novo’</p></li>
 <li><p>Germline: for germline samples; set analysisMode to ‘germline’</p></li>
 </ol>
-</section>
-<section id="id10">
-<h3>V.  Run modes<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="v-run-modes">
+<h2>V.  Run modes<a class="headerlink" href="#v-run-modes" title="Permalink to this headline">¶</a></h2>
 <p>The pipeline has three run modes available; select one in the configuration file under “runMode”:</p>
 <ol class="arabic simple">
 <li><p>callOnly: perform SV calling on user-specified bams</p></li>
 <li><p>annotateOnly: annotate and compare user-specified SV caller outputs</p></li>
 <li><p>callAndAnnotate: call SVs and annotate (user only has to specify the initial bam inputs for this mode; caller outputs are automatically detected)</p></li>
 </ol>
-</section>
-<section id="id11">
-<h3>VI.  Callers available<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="vi-callers-available">
+<h2>VI.  Callers available<a class="headerlink" href="#vi-callers-available" title="Permalink to this headline">¶</a></h2>
 <p>Select from the following callers in the configuration file under “callers”:</p>
 <ul class="simple">
 <li><p>svaba</p></li>
@@ -125,35 +231,26 @@
 <li><p>breakdancer</p></li>
 </ul>
 <p>To add a caller, three new elements are required: a snakefile to run the calling, a caller_to_bed script to convert the output to bed format, and a container recipe file with the caller installed. Please see the developer’s guide below for more details.</p>
-</section>
-</section>
-<section id="id12">
-<h2>User’s guide<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
-<section id="id13">
-<h3>I.  Input requirements<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
-<section id="id14">
-<h4>A.  Required for all run modes:<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="user-s-guide">
+<h3>User’s guide<a class="headerlink" href="#user-s-guide" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="i-input-requirements">
+<h2>I.  Input requirements<a class="headerlink" href="#i-input-requirements" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Edited config.yaml (note that you can customize the name and location of this file)</p></li>
 <li><p>Sample file (required format and contents depend on run mode and analysis mode; see subsequent section for details)</p></li>
 </ul>
-</section>
-<section id="id15">
-<h4>B.  Required for <strong>callOnly</strong> or <strong>callAndAnnotate</strong> run modes:<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Reference genome (with our without indices; the pipeline will generate any missing index files)</p></li>
 <li><p>Sorted and indexed bam files</p></li>
 </ul>
-</section>
-<section id="id16">
-<h4>C.  Required for annotateOnly run mode:<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Caller output</p></li>
 </ul>
-</section>
-</section>
-<section id="id17">
-<h3>II.  Sample file formats<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="ii-sample-file-formats">
+<h2>II.  Sample file formats<a class="headerlink" href="#ii-sample-file-formats" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>Sample files for <strong>callOnly</strong> or <strong>callAndAnnotate</strong> run modes:</p>
 <ul>
@@ -214,15 +311,10 @@
 </div>
 </li>
 </ul>
-</section>
-<section id="id18">
-<h3>III.  Comparison and annotation<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
-<section id="id19">
-<h4>A. SV comparison methods<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="iii-comparison-and-annotation">
+<h2>III.  Comparison and annotation<a class="headerlink" href="#iii-comparison-and-annotation" title="Permalink to this headline">¶</a></h2>
 <p>We employ two different methods to compare SVs across callers and to public SV databases.  For intra-chromosomal SVs, we use percent reciprocal overlap (e.g., to be considered comparable, SV1 must overlap at least X% of SV2, and SV2 must overlap at least X% of SV1).  For intra-chromosomal insertions, we first pad by a number of bases up- and down-stream, then apply percent reciprocal overlap.  For inter-chromosomal SVs, we look for overlap within a window surrounding each breakend.</p>
-</section>
-<section id="id20">
-<h4>B. Annotation<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
 <p>We include three categories of annotation in the final output file:</p>
 <ol class="arabic simple">
 <li><p>Genomic context (non-reciprocal percent overlap with regions in UCSC browser’s RepeatMasker, SegDups, and Telomere/Centromere tracks)</p></li>
@@ -242,10 +334,9 @@
 <li><p>Geneset (any amount of overlap with RefSeq transcripts/gene names)</p></li>
 </ol>
 <p>See our publication (<em>__</em>) for additional details.  Parameters defining these comparisons are user-configurable; see subsequent section.</p>
-</section>
-</section>
-<section id="id21">
-<h3>IV.  Editing the config.yaml<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="iv-editing-the-config-yaml">
+<h2>IV.  Editing the config.yaml<a class="headerlink" href="#iv-editing-the-config-yaml" title="Permalink to this headline">¶</a></h2>
 <p><strong>Basic analysis parameters</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">analysisMode:</span></code> Enter one value for analysisMode (TN, TO, germline, de_novo)</p></li>
@@ -308,17 +399,17 @@ modules/Snakefile_delly_TN, scripts/delly_to_bed.sh, config file ‘delly’: YE
 <li><p><code class="docutils literal notranslate"><span class="pre">maxNumJobs:</span></code> Enter the maximum number of jobs to run in parallel; N/A if running locally</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">maxThreads:</span></code> Assign the number of threads for each caller listed in <code class="docutils literal notranslate"><span class="pre">callers:</span></code> above, in matching order.  For callers that can not use multi-threading, assign 1.  Assign 1 if running locally and/or without multi-threading.</p></li>
 </ul>
-</section>
-<section id="id22">
-<h3>V.  To run<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="v-to-run">
+<h2>V.  To run<a class="headerlink" href="#v-to-run" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Copy config.yaml to your directory</p></li>
 <li><p>Edit config.yaml and save</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">SV_wrapper.sh</span> <span class="pre">/full/path/config.yaml</span></code> as appropriate for your environment (e.g. on an HPC using the SGE job scheduler, run <code class="docutils literal notranslate"><span class="pre">qsub</span> <span class="pre">-q</span> <span class="pre">&lt;queue&gt;</span> <span class="pre">SV_wrapper.sh</span> <span class="pre">/full/path/config.yaml</span></code>)</p></li>
 </ul>
-</section>
-<section id="id23">
-<h3>VI.  To monitor pipeline<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="vi-to-monitor-pipeline">
+<h2>VI.  To monitor pipeline<a class="headerlink" href="#vi-to-monitor-pipeline" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>Look in log directory (specified in config file) for snakemake logged stdout <code class="docutils literal notranslate"><span class="pre">MineSV_DATETIME.out</span></code></p></li>
 <li><p>Look in same log directory as above for logs for each rule (e.g. <code class="docutils literal notranslate"><span class="pre">snakejob.delly_call.119.sh.o123456</span></code>; file names will vary depeneding on environment)</p></li>
@@ -332,9 +423,9 @@ modules/Snakefile_delly_TN, scripts/delly_to_bed.sh, config file ‘delly’: YE
 </ul>
 </li>
 </ul>
-</section>
-<section id="id24">
-<h3>VI. Output<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="vi-output">
+<h2>VI. Output<a class="headerlink" href="#vi-output" title="Permalink to this headline">¶</a></h2>
 <p>MineSV has two main outputs: SV calls from each caller, and the union of all callers for each sample along with comparison and annotation information.</p>
 <ol class="arabic simple">
 <li><p>Each caller run will write to its own directory (e.g. delly run in tumor/normal mode will create and write to a directory called <code class="docutils literal notranslate"><span class="pre">delly_TN</span></code>).  See the individual callers’ documentation for descriptions of output.</p></li>
@@ -448,26 +539,24 @@ modules/Snakefile_delly_TN, scripts/delly_to_bed.sh, config file ‘delly’: YE
 </tbody>
 </table>
 <p><em>Think about differences for inter-chrom SVs, e.g. instead of all overlapping genes, just report those that the break ends reside in?  or all genes within x bp?</em></p>
-</section>
-</section>
-<section id="id25">
-<h2>Developer’s guide<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
-<section id="id26">
-<h3>I.  Pipeline architecture<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="developer-s-guide">
+<h3>Developer’s guide<a class="headerlink" href="#developer-s-guide" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="i-pipeline-architecture">
+<h2>I.  Pipeline architecture<a class="headerlink" href="#i-pipeline-architecture" title="Permalink to this headline">¶</a></h2>
 <p>MineSV is a Snakemake pipeline controlled by a user-configurable YAML file.  The file Snakefile_SV_scaffold pulls in other sets of rules based on the chosen configuration options, and for either of the two calling run modes, runs a few rules that are required regardless of caller choice.  The scaffold dictates which sets of rules to include based on the analysis mode and the list of callers.  Snakefiles in the <code class="docutils literal notranslate"><span class="pre">modules/</span></code> directory contain the sets of rules that pertain to a given caller and analysis mode.  They are named accordingly, e.g. <code class="docutils literal notranslate"><span class="pre">modules/Snakefile_delly_TN</span></code> contains the rules to run delly on tumor/normal samples.  The scaffold matches the callers and analysis mode listed in the config to the modules/Snakefiles in order to include the applicable rules, but in such a way as to minimize code changes required to add new callers.</p>
-</section>
-<section id="id27">
-<h3>II.  To add callers<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="ii-to-add-callers">
+<h2>II.  To add callers<a class="headerlink" href="#ii-to-add-callers" title="Permalink to this headline">¶</a></h2>
 <p>There are three steps required to add a caller:</p>
 <ol class="arabic simple">
 <li><p>Construct a Snakefile, named <code class="docutils literal notranslate"><span class="pre">modules/Snakefile_&lt;caller&gt;_&lt;anMode&gt;</span></code>, to run the new caller in a given analysis mode.  You may start with the appropriate <code class="docutils literal notranslate"><span class="pre">TEMPLATE_Snakefile_caller_&lt;anMode&gt;</span></code> file found in the <code class="docutils literal notranslate"><span class="pre">modules/</span></code> directory.  Note that many variables are sourced from the config file in Snakefile_SV_scaffold and are available in snakefiles that are included from the scaffold.  Be sure that the caller name used in this filename is identical to the caller name you use in the config file.</p></li>
 <li><p>Add a shell script to the <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> directory to convert the new caller’s output to bed format.  This can generally be done in three awk statements; to start, see <code class="docutils literal notranslate"><span class="pre">scripts/TEMPLATE_caller_to_bed.sh</span></code> file.  Like in step 1, ensure that you use the same caller name to name this script.</p></li>
 <li><p>Create a container with the caller (and any other dependencies) installed.  This can be a singularity container or a docker container, preferably hosted on a public-facing hub.  You may start with <code class="docutils literal notranslate"><span class="pre">TEMPLATE_singularity_recipe</span></code>.  Be sure you are running the relevant rules in your snakefile within the container.</p></li>
 </ol>
-</section>
-</section>
-<section id="id28">
-<h2>Citations<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="citations">
+<h3>Citations<a class="headerlink" href="#citations" title="Permalink to this headline">¶</a></h3>
 <p>The original MoCCA-SV pipeline:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/NCI-CGR/MoCCA-SV">https://github.com/NCI-CGR/MoCCA-SV</a></p></li>
@@ -489,81 +578,55 @@ modules/Snakefile_delly_TN, scripts/delly_to_bed.sh, config file ‘delly’: YE
 <li><p>Kurtzer GM, et al. Singularity: Scientific containers for mobility of compute (2017). PLoS ONE, 12(5): e0177459.</p></li>
 <li><p>Sochat V, et al. Enhancing reproducibility in scientific computing: Metrics and registry for Singularity containers (2017). PLoS ONE, 12(11): e0188511.</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
+           </div>
+           
           </div>
-          
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to MineSV’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Bari Ballew, Wei Zhu.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">MineSV</a></h1>
 
+    </section>
 
+  </div>
+  
 
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
 
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">README</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id12">User’s guide</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id25">Developer’s guide</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id28">Citations</a></li>
-</ul>
-</li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Welcome to MineSV’s documentation!</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2021, Bari Ballew, Wei Zhu.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/readme.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
-
+  
+  
     
+   
 
-    
-  </body>
+</body>
 </html>
