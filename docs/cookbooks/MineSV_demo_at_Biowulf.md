@@ -270,7 +270,7 @@ Command run: sbatch -t 200:00:00 --export=ALL --mem=32g -p norm -o /data/zhuw10/
 
 ### Inspect MineSV output files
 
-We have already packed the MineSV output from this tutorial run into a zip file, together with the full MineSV pipeline, the sequencing input data and the corresponding reference genome.  The zipped file is available at [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5213041.svg)](https://doi.org/10.5281/zenodo.5213041).
+We have already packed the MineSV output from this tutorial run into a zip file, together with the full MineSV pipeline, the sequencing input data and the corresponding reference genome.  The zipped file is available at <a href="https://doi.org/10.5281/zenodo.5213041"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5213041.svg" alt="DOI"></a>.
 
 
 <pre>
