@@ -4,8 +4,7 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Run MineSV demo at Biowulf &mdash; MineSV 0.4 documentation</title>
@@ -193,29 +192,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="run-minesv-demo-at-biowulf">
+  <div class="section" id="run-minesv-demo-at-biowulf">
 <h1>Run MineSV demo at Biowulf<a class="headerlink" href="#run-minesv-demo-at-biowulf" title="Permalink to this headline">¶</a></h1>
-<section id="introduction">
+<div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>This tutorial is to guide users to install and run <em>MineSV</em> using the Slurm workload management at <a class="reference external" href="https://hpc.nih.gov/docs/userguide.html">Biowulf</a>.  We are going to run three SV calls via <em>MineSV</em>: svaba, manta and gridss on one set of normal/tumor paired next-generation sequencing data.</p>
-</section>
-<section id="installation">
+</div>
+<div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<section id="start-to-make-the-folder-for-this-tutorial">
+<div class="section" id="start-to-make-the-folder-for-this-tutorial">
 <h3>Start to make the folder for this tutorial<a class="headerlink" href="#start-to-make-the-folder-for-this-tutorial" title="Permalink to this headline">¶</a></h3>
 <pre>
 export DEMO_DIR=/data/<mark>yourusername</mark>/MineSV_Demo_at_Biowulf
 </pre><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir -p <span class="nv">$DEMO_DIR</span><span class="p">;</span> <span class="nb">cd</span> <span class="nv">$_</span>
 </pre></div>
 </div>
-</section>
-<section id="clone-minesv-from-github">
+</div>
+<div class="section" id="clone-minesv-from-github">
 <h3>Clone <em>MineSV</em> from github<a class="headerlink" href="#clone-minesv-from-github" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/NCI-CGR/MineSV
 </pre></div>
 </div>
-</section>
-<section id="add-annotation-data-set-to-minesv">
+</div>
+<div class="section" id="add-annotation-data-set-to-minesv">
 <h3>Add annotation data set to MineSV<a class="headerlink" href="#add-annotation-data-set-to-minesv" title="Permalink to this headline">¶</a></h3>
 <p>Due to the file size limit in the github, we deposit the annotation component of MineSV to Zenodo <span class="raw-html-m2r"><a href="https://doi.org/10.5281/zenodo.5176148"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5176148.svg" alt="DOI"></a></span>.  And we need to add this component to the MineSV clone before running this snakeamke pipeline.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget -O MineSV_annotation.tgz https://zenodo.org/record/5176148/files/MineSV_annotation.tgz?download<span class="o">=</span><span class="m">1</span>
@@ -267,16 +266,16 @@ MineSV/annotation
 <span class="m">12</span> directories, <span class="m">27</span> files
 </pre></div>
 </div>
-</section>
-<section id="download-the-input-sequence-data-set-a-href-https-doi-org-10-5281-zenodo-5217570-img-src-https-zenodo-org-badge-doi-10-5281-zenodo-5217570-svg-alt-doi-a">
+</div>
+<div class="section" id="download-the-input-sequence-data-set-a-href-https-doi-org-10-5281-zenodo-5217570-img-src-https-zenodo-org-badge-doi-10-5281-zenodo-5217570-svg-alt-doi-a">
 <h3>Download the input sequence data set <span class="raw-html-m2r"><a href="https://doi.org/10.5281/zenodo.5217570"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5217570.svg" alt="DOI"></a></span><a class="headerlink" href="#download-the-input-sequence-data-set-a-href-https-doi-org-10-5281-zenodo-5217570-img-src-https-zenodo-org-badge-doi-10-5281-zenodo-5217570-svg-alt-doi-a" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget -O MineSV_Demo_SeqInput.zip https://zenodo.org/record/5217570/files/MineSV_Demo_SeqInput.zip?download<span class="o">=</span><span class="m">1</span>
 
 unzip MineSV_Demo_SeqInput.zip
 </pre></div>
 </div>
-</section>
-<section id="check-the-current-status">
+</div>
+<div class="section" id="check-the-current-status">
 <h3>Check the current status<a class="headerlink" href="#check-the-current-status" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tree -L <span class="m">2</span>
 .
@@ -306,12 +305,12 @@ unzip MineSV_Demo_SeqInput.zip
 <span class="m">7</span> directories, <span class="m">15</span> files
 </pre></div>
 </div>
-</section>
-</section>
+</div>
+</div>
 <hr class="docutils" />
-<section id="configure-the-minesv-run">
+<div class="section" id="configure-the-minesv-run">
 <h2>Configure the <em>MineSV</em> run<a class="headerlink" href="#configure-the-minesv-run" title="Permalink to this headline">¶</a></h2>
-<section id="create-the-directory-working-dir-and-prepare-the-input-file">
+<div class="section" id="create-the-directory-working-dir-and-prepare-the-input-file">
 <h3>Create the directory working_dir and prepare the input file<a class="headerlink" href="#create-the-directory-working-dir-and-prepare-the-input-file" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir workding_dir<span class="p">;</span> <span class="nb">cd</span> <span class="nv">$_</span>
 
@@ -320,8 +319,8 @@ cat <span class="s">&lt;&lt;EOF &gt; input.txt</span>
 <span class="s">EOF</span>
 </pre></div>
 </div>
-</section>
-<section id="create-the-file-config-yaml">
+</div>
+<div class="section" id="create-the-file-config-yaml">
 <h3>Create the file config.yaml<a class="headerlink" href="#create-the-file-config-yaml" title="Permalink to this headline">¶</a></h3>
 <p>User may make a copy of the file config.yaml under the folder ../MineSV to the folder worling_dir, and make some necessary changes.  Briefly, we select the analysis mode as ‘TN’ for the somatic SV call from the Tumor-Normal paired samples. And we use three SV callers in this particular demo: svaba, manta and gridss.</p>
 <p>The revised config.yaml for this tutorial is as below:</p>
@@ -372,8 +371,8 @@ cat <span class="s">&lt;&lt;EOF &gt; input.txt</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">8</span>
 </pre></div>
 </div>
-</section>
-<section id="copy-the-scripts-sv-wrapper-sh-and-run-pipeline-sh">
+</div>
+<div class="section" id="copy-the-scripts-sv-wrapper-sh-and-run-pipeline-sh">
 <h3>Copy the scripts SV_wrapper.sh and run_pipeline.sh<a class="headerlink" href="#copy-the-scripts-sv-wrapper-sh-and-run-pipeline-sh" title="Permalink to this headline">¶</a></h3>
 <p>SV_wrapper.sh is a wrapper shell script to help users to launch the MineSV pipeline, and run_pipeline.sh is another helper script to submit SV_wrapper.sh as a slurm job itself.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="nv">$DEMO_DIR</span>/workding_dir
@@ -382,19 +381,19 @@ cp ../MineSV/SV_wrapper.sh .
 cp ../MineSV/run_pipeline_at_biowulf.sh run_pipeline.sh
 </pre></div>
 </div>
-</section>
-</section>
+</div>
+</div>
 <hr class="docutils" />
-<section id="run-the-minesv-snakemake-pipeline">
+<div class="section" id="run-the-minesv-snakemake-pipeline">
 <h2>Run the MineSV snakemake pipeline<a class="headerlink" href="#run-the-minesv-snakemake-pipeline" title="Permalink to this headline">¶</a></h2>
-<section id="start-an-interactive-session-at-biowulf-2-minutes">
+<div class="section" id="start-an-interactive-session-at-biowulf-2-minutes">
 <h3>Start an interactive session at Biowulf (~ 2 minutes)<a class="headerlink" href="#start-an-interactive-session-at-biowulf-2-minutes" title="Permalink to this headline">¶</a></h3>
 <p>This process may take several minutes and you will get a new shell prompt something similar to “(base) [<a class="reference external" href="mailto:zhuw10&#37;&#52;&#48;cn0853">zhuw10<span>&#64;</span>cn0853</a> workding_dir]$ “, where cnXXXX indicates the computer node that has just been allocated to you (more details about sinteractive is available at <a class="reference external" href="https://hpc.nih.gov/docs/userguide.html#int">here</a>).  We use the interactive session for the subsequent operations.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sinteractive --time<span class="o">=</span><span class="m">2160</span> --mem<span class="o">=</span>8g --cpus-per-task<span class="o">=</span><span class="m">4</span>
 </pre></div>
 </div>
-</section>
-<section id="generate-the-rulegraph-plot-of-minesv">
+</div>
+<div class="section" id="generate-the-rulegraph-plot-of-minesv">
 <h3>Generate the rulegraph plot of MineSV<a class="headerlink" href="#generate-the-rulegraph-plot-of-minesv" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="nv">$DEMO_DIR</span>/workding_dir
 
@@ -408,8 +407,8 @@ display dag.png <span class="c1"># Try it if you have set up X11 and ssh properl
 </pre></div>
 </div>
 <a class="reference external image-reference" href="../_static/dag.png"><img alt="" src="../_images/dag.png" /></a>
-</section>
-<section id="build-indices-for-the-new-reference-genome-homo-sapiens-chr22-assembly19-fasta-optional-15-minutes">
+</div>
+<div class="section" id="build-indices-for-the-new-reference-genome-homo-sapiens-chr22-assembly19-fasta-optional-15-minutes">
 <h3>Build indices for the new reference genome Homo_sapiens_chr22_assembly19.fasta (optional, ~15 minutes)<a class="headerlink" href="#build-indices-for-the-new-reference-genome-homo-sapiens-chr22-assembly19-fasta-optional-15-minutes" title="Permalink to this headline">¶</a></h3>
 <p>The building of reference genome indices is part of the MineSV pipeline and will be processed by default if any of the indices is not available.  We take this step is to demonstrate that how the running details is wrapped by the scripts <a href="#id1"><span class="problematic" id="id2">**</span></a><em>SV_wrapper.sh</em>** and <a href="#id3"><span class="problematic" id="id4">**</span></a><em>run_pipeline.sh</em><a href="#id5"><span class="problematic" id="id6">**</span></a>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">conf</span><span class="o">=</span>config.yaml snakemake --cores <span class="m">10</span>  -p --latency-wait <span class="m">10</span> <span class="se">\</span>
@@ -419,8 +418,8 @@ display dag.png <span class="c1"># Try it if you have set up X11 and ssh properl
     -U bwa_index_ref fai_index_ref dict_index_ref
 </pre></div>
 </div>
-</section>
-<section id="run-minesv-30-minutes">
+</div>
+<div class="section" id="run-minesv-30-minutes">
 <h3>Run MineSV (&gt;30 minutes)<a class="headerlink" href="#run-minesv-30-minutes" title="Permalink to this headline">¶</a></h3>
 <p>The launch of the MineSV pipeline has been simiplified by the use of the script run_pipeline.sh :</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="nv">$DEMO_DIR</span>/workding_dir
@@ -444,10 +443,10 @@ display dag.png <span class="c1"># Try it if you have set up X11 and ssh properl
 <span class="go">21390543</span>
 </pre></div>
 </div>
-</section>
-</section>
+</div>
+</div>
 <hr class="docutils" />
-<section id="inspect-minesv-output-files">
+<div class="section" id="inspect-minesv-output-files">
 <h2>Inspect MineSV output files<a class="headerlink" href="#inspect-minesv-output-files" title="Permalink to this headline">¶</a></h2>
 <p>We have already packed the MineSV output from this tutorial run into a zip file, together with the full MineSV pipeline, the sequencing input data and the corresponding reference genome.  The zipped file is available at <span class="raw-html-m2r"><a href="https://doi.org/10.5281/zenodo.5213041"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5213041.svg" alt="DOI"></a></span>.</p>
 <pre>
@@ -460,7 +459,7 @@ wget https://zenodo.org/record/5213041/files/MineSV_Demo_at_Biowulf.zip?download
 unzip MineSV_Demo_at_Biowulf.zip
 </pre></div>
 </div>
-<section id="the-original-output-files-from-the-sv-callers">
+<div class="section" id="the-original-output-files-from-the-sv-callers">
 <h3>The original output files from the SV callers<a class="headerlink" href="#the-original-output-files-from-the-sv-callers" title="Permalink to this headline">¶</a></h3>
 <p>The original outputs from the SV callers are available in the folder <a href="#id7"><span class="problematic" id="id8">**</span></a><em>&lt;caller&amp;gt;_TN</em>** under the working directory:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tree -L <span class="m">2</span> MineSV_Demo_at_Biowulf/working_dir/*_TN/
@@ -511,8 +510,8 @@ MineSV_Demo_at_Biowulf/working_dir/svaba_TN/
 <span class="m">9</span> directories, <span class="m">31</span> files
 </pre></div>
 </div>
-</section>
-<section id="sv-comparison-and-annotateion-results-from-minesv">
+</div>
+<div class="section" id="sv-comparison-and-annotateion-results-from-minesv">
 <h3>SV comparison and annotateion results from MineSV<a class="headerlink" href="#sv-comparison-and-annotateion-results-from-minesv" title="Permalink to this headline">¶</a></h3>
 <p>Running in callAndAnnotate or callOnly modes will create the directory output/compare_and_annotate. This directory contains the files intrachromosomal<em>SVs</em>&lt;sample&amp;gt;, which contain the superset of SVs from all callers. NOTE: this is under development, and inter-chromosomal SVs are being integrated currently.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tree -L <span class="m">1</span> MineSV_Demo_at_Biowulf/working_dir/output/compare_and_annotate/
@@ -526,9 +525,9 @@ MineSV_Demo_at_Biowulf/working_dir/output/compare_and_annotate/
 <span class="m">3</span> directories, <span class="m">2</span> files
 </pre></div>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
            </div>
