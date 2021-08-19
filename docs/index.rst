@@ -3,14 +3,23 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to MineSV's documentation!
+Welcome to |PIPE|'s documentation!
 ==================================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :name: getting-started
+   :caption: Getting started
 
    readme
+
+.. toctree::
+   :maxdepth: 1
+   :name: cookbook
+   :caption: Cookbook
+
+   cookbooks/MineSV_demo_at_Biowulf
+
 
 Indices and tables
 ==================

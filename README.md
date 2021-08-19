@@ -27,14 +27,15 @@
   - [II.  To add callers](#ii-to-add-callers)
 - [Citations](#citations)
 
+
 ## Overview
 
 ### I.  Description
 
-This pipeline coordinates and monitors the submission of a list of bams for structural variant discovery, and comparison/annotation of results.  You may opt to run calling alone, annotation alone, or both sequentially.  Multiple callers are included with MineSV, and additional callers may be added.  The pipeline may be run on an HPC or in a local environment.  Details are described in subsequent sections.
+This pipeline coordinates and monitors the submission of a list of bams for structural variant discovery, and comparison/annotation of results.  You may opt to run calling alone, annotation alone, or both sequentially.  Multiple callers are included with MineSV, and additional callers may be added.  The pipeline may be run on an HPC or in a local environment.  Details are described in subsequent sections, and the main documentation is available at https://nci-cgr.github.io/MineSV/ .
 
 ### II. A little history about MineSV
-MineSV was started to be developed at the NCI-Cancer Genomics Research Laboratory (NCI-CGR) in 2018, with the original name ***MoCCA-SV*** (Modular Calling, Comparison, and Annotation of Structural Variants). It was renamed as ***MineSV*** in June 2021.
+MineSV was started to be developed at the NCI-Cancer Genomics Research Laboratory (NCI-CGR) in 2018, with the original name ***MoCCA-SV*** (Modular Calling, Comparison, and Annotation of Structural Variants). It has been renamed as ***MineSV*** since June 2021.
 
 ### III.  Dependencies
 
@@ -70,7 +71,10 @@ Select from the following callers in the configuration file under "callers":
 To add a caller, three new elements are required: a snakefile to run the calling, a caller_to_bed script to convert the output to bed format, and a container recipe file with the caller installed. Please see the developer's guide below for more details.
 
 
+
+
 ## User's guide
+
 
 ### I.  Input requirements
 
@@ -279,6 +283,7 @@ Headers from file `intrachromosomal_SVs_<sample>`:
 
 *Think about differences for inter-chrom SVs, e.g. instead of all overlapping genes, just report those that the break ends reside in?  or all genes within x bp?*
 
+
 ## Developer's guide
 
 ### I.  Pipeline architecture
@@ -293,7 +298,10 @@ There are three steps required to add a caller:
 2.  Add a shell script to the `scripts/` directory to convert the new caller's output to bed format.  This can generally be done in three awk statements; to start, see `scripts/TEMPLATE_caller_to_bed.sh` file.  Like in step 1, ensure that you use the same caller name to name this script.
 3.  Create a container with the caller (and any other dependencies) installed.  This can be a singularity container or a docker container, preferably hosted on a public-facing hub.  You may start with `TEMPLATE_singularity_recipe`.  Be sure you are running the relevant rules in your snakefile within the container.
 
+
 ## Citations
+The main MineSV documentation is at: https://nci-cgr.github.io/MineSV/ 
+
 The original MoCCA-SV pipeline:
 - https://github.com/NCI-CGR/MoCCA-SV
 
