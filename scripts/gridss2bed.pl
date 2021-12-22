@@ -52,8 +52,9 @@ while(<FIN>){
     chomp;
     my ($chr1, $pos1, $id, $ref, $alt, $qual, $filter, $info, $format) = split(/\t/,$_);
     
-    # next if $id =~ /b$/; # ignore single BND
-    next if $id !~ /o$/ | $filter ne "PASS"; # ignore the parter BND and focus "o"
+    next if $id =~ /b$/; # ignore single BND
+    # next if $id !~ /o$/ | $filter ne "PASS"; # ignore the parter BND and focus "o"
+    next if $filter ne "PASS";
 
     my $NR = $.; 
     
