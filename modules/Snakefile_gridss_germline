@@ -22,7 +22,8 @@ rule gridss_call:
         assembly=gridssWkngDir + "{sample}.assembly.bam"
     params:
         ref = refBindPath + refFile,
-        bam = get_bam_container
+        bam = get_bam_container,
+	w= gridssWkngDir + "{sample}_workingdir"
     benchmark:
         "benchmarks/gridss_call/{sample}.tsv"
     resources: 
@@ -38,7 +39,7 @@ rule gridss_call:
                          --output {output.vcf} \
                          --assembly {output.assembly} \
                          --threads {threads} \
-                         --workingdir . \
+                         --workingdir {params.w}  \
                          --jvmheap 30g \
                          --steps All  \
                          --maxcoverage 50000 \
