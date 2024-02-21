@@ -1,0 +1,2 @@
+2020-07-14 11:25:39,096 [INFO] Running my_vcf2bed.py -i ../../bench_ws/synthetic/is1.vcf
+2020-07-14 11:25:39,097 [INFO] Process the base vcf file now: ../../bench_ws/synthetic/is1.vcf.

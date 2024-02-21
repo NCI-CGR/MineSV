@@ -1,0 +1,54 @@
+2020-06-24 22:15:03,024 [INFO] Running /home/zhuw10/miniconda3/bin/truvari bench -p 0 -b ../data/HG002_SVs_Tier1_v0.6.vcf.gz -c ../data/HG002_SVs_Tier1_v0.6.vcf.gz -o TestvcfvsGIABv0.6 --passonly --includebed ../data/HG002_SVs_Tier1_noVDJorXorY_v0.6.2.bed -r 2000 --giabreport
+2020-06-24 22:15:03,024 [INFO] Params:
+{
+    "base": "../data/HG002_SVs_Tier1_v0.6.vcf.gz",
+    "comp": "../data/HG002_SVs_Tier1_v0.6.vcf.gz",
+    "output": "TestvcfvsGIABv0.6",
+    "reference": null,
+    "giabreport": true,
+    "debug": false,
+    "prog": false,
+    "refdist": 2000,
+    "pctsim": 0.0,
+    "buffer": 0.1,
+    "pctsize": 0.7,
+    "pctovl": 0.0,
+    "typeignore": false,
+    "gtcomp": false,
+    "bSample": null,
+    "cSample": null,
+    "sizemin": 50,
+    "sizefilt": 30,
+    "sizemax": 50000,
+    "passonly": true,
+    "no_ref": false,
+    "includebed": "../data/HG002_SVs_Tier1_noVDJorXorY_v0.6.2.bed",
+    "multimatch": false
+}
+2020-06-24 22:15:03,441 [INFO] Creating call interval tree for overlap search
+2020-06-24 22:15:07,302 [INFO] Including 33450 bed regions
+2020-06-24 22:15:23,581 [INFO] 19224 call variants in total
+2020-06-24 22:15:23,581 [INFO] 9361 call variants within size range (30, 50000)
+2020-06-24 22:15:23,798 [INFO] Matching base to calls
+2020-06-24 22:15:57,305 [INFO] Results peek: 9361 TP-base 0 FN 100.00% Recall
+2020-06-24 22:15:57,305 [INFO] Parsing FPs from calls
+2020-06-24 22:16:14,313 [INFO] Stats: {
+    "TP-base": 9361,
+    "TP-call": 9361,
+    "FP": 0,
+    "FN": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "base cnt": 9361,
+    "call cnt": 9361,
+    "TP-call_TP-gt": 9361,
+    "TP-call_FP-gt": 0,
+    "TP-base_TP-gt": 9361,
+    "TP-base_FP-gt": 0,
+    "gt_precision": 1.0,
+    "gt_recall": 1.0,
+    "gt_f1": 1.0
+}
+2020-06-24 22:16:14,317 [INFO] Creating GIAB report
+2020-06-24 22:16:16,102 [INFO] Finished
