@@ -13,13 +13,14 @@ cmd_find_intraSV="grep -v $varType"
 cmd_find_interSV="grep $varType"
 
 # C]21:48119850]
-cmd_get_intra_coords="awk '{FS=OFS=\"\\t\"} {match(\$5, \"[\\\\[\\\\]]([^:]+):([0-9]+)[\\\\[\\\\]]\", a); chr=a[1];pos1=a[2]} {print \$1, \$2, pos1, \$NF}'"
+cmd_get_intra_coords="awk '{FS=OFS=\"\\t\"} {match(\$5, \"[\\\\[\\\\]](.+):([0-9]+)[\\\\[\\\\]]\", a); chr=a[1];pos1=a[2]} {print \$1, \$2, pos1, \$NF}'"
 
 cmd_sort_intra_coords="awk '{FS=OFS=\"\\t\"} (\$2<\$3){print \$0} (\$2>\$3){print \$1,\$3,\$2,\$4} (\$2==\$3){print \$1,\$2,\$3+1,\$4}'"
 cmd_get_end1_coords="awk '{FS=OFS=\"\\t\"} (\$2!=0){pos1=\$2-1; pos2=\$2} (\$2==0){pos1=\$2; pos2=\$2+1} {print \$1,pos1,pos2,\$NF}'"
 
 # C]21:48119850]
-cmd_get_end2_coords="awk '{FS=OFS=\"\\t\"} {match(\$5, \"[\\\\[\\\\]]([^:]+):([0-9]+)[\\\\[\\\\]]\", a); chr=a[1];pos1=a[2]} (pos1!=0){print chr,pos1-1,pos1,\$NF} (pos1==0){print chr,pos1,pos1+1,\$NF}'"
+# HLA-DQA1*05:03
+cmd_get_end2_coords="awk '{FS=OFS=\"\\t\"} {match(\$5, \"[\\\\[\\\\]](.+):([0-9]+)[\\\\[\\\\]]\", a); chr=a[1];pos1=a[2]} (pos1!=0){print chr,pos1-1,pos1,\$NF} (pos1==0){print chr,pos1,pos1+1,\$NF}'"
 
 if [[ $input = *.gz ]]; then
     cmd_intra="zcat ${input} | ${cmd_add_linenum} | ${cmd_remove_headers} | ${cmd_find_intraSV} | ${cmd_get_intra_coords} | ${cmd_sort_intra_coords} > ${outDir}${sample}_intra.bed"
