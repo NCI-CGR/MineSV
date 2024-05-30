@@ -49,7 +49,7 @@ elsif ($clusterMode !~ /^[A-Za-z0-9.,\-_\/'"{} ]+$/) {
 
 my $build = $yaml->[0]->{genomeBuild};
 chomp($build);
-die "ERROR: genomeBuild in config file can only be hg19 or b37.\n" if ($build ne "hg19" && $build ne "b37");
+die "ERROR: genomeBuild in config file can only be hg19 or b37.\n" if ($build ne "hg19" && $build ne "b37" && $build ne "hg38");
 my @paramArray = ("interchromPadding", "crossCallerOverlap", "genomicContextOverlap", "publicDataOverlap");
 my $param;
 foreach (@paramArray) {
@@ -119,7 +119,7 @@ if ($runMode !~ /annotateOnly/) {
 
     # Check for chr consistency
     my $cmd;
-    if ($build =~ /hg19/) {
+    if ($build =~ /hg(19|38)/) {
         $cmd = "head -n3 $refGenome | grep -c '>chr'";
     }
     elsif ($build =~ /b37/) {
